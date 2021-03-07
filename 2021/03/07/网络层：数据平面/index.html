@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Hello World | Lingfei</title>
+  <title>网络层：数据平面 | Lingfei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+  <meta name="description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2021/03/05/hello-world/index.html">
+<meta property="og:title" content="网络层：数据平面">
+<meta property="og:url" content="http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/index.html">
 <meta property="og:site_name" content="Lingfei">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.">
+<meta property="og:description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-05T04:25:03.394Z">
-<meta property="article:modified_time" content="2021-03-05T09:05:55.222Z">
+<meta property="article:published_time" content="2021-03-07T06:28:22.512Z">
+<meta property="article:modified_time" content="2021-03-07T09:33:06.614Z">
 <meta property="article:author" content="Lingfei">
-<meta property="article:tag" content="随笔">
+<meta property="article:tag" content="Computer Network">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lingfei" type="application/atom+xml">
@@ -164,41 +164,56 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-网络层：数据平面" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      网络层：数据平面
     </h1>
   
 
         
-        <a href="/2021/03/05/hello-world/" class="archive-article-date">
-  	<time datetime="2021-03-05T04:25:03.394Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-05</time>
+        <a href="/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" class="archive-article-date">
+  	<time datetime="2021-03-07T06:28:22.512Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+        <hr>
+<blockquote>
+<p>在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。        </p>
+<p>​                                                                                                             ——Butler Lampson</p>
+</blockquote>
 <span id="more"></span>
 
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p><strong>网络层的数据平面功能，即网络层中每台路由器的功能，该数据平面决定到达路由器输入链路之一的数据报（即网络层的分组）如何转发到该路由器的输出链路之一。</strong></p>
+<h2 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h2><p>数据平面仅执行<em><strong>转发</strong></em>功能，而远程控制器，即控制平面执行<em><strong>路由选择</strong></em>功能</p>
+<h3 id="基于目的地的转发"><a href="#基于目的地的转发" class="headerlink" title="基于目的地的转发"></a>基于目的地的转发</h3><p>转发表中含有首部，输出两项。路由器检查到达分组首部的一个或多个字段值，通过这些字段值在其转发表中索引，通过这种方法来转发分组。转发仅仅根据目的地址。</p>
+<p>路由器用分组目的地址的前缀与该表中的表项进行匹配，如果存在一个匹配项，则向该匹配项所指出的链路接口转发分组。使用最长前缀匹配原则。</p>
+<h3 id="基于通用的转发"><a href="#基于通用的转发" class="headerlink" title="基于通用的转发"></a>基于通用的转发</h3><p>转发包中含有首部、计数器、动作三个表项。“匹配加动作”。动作包括转发、丢弃、修改字段。转发不仅仅通过目的地址。SDN中采用基于通用的转发</p>
+<p>负载均衡：在发往同一个子网的数据报中，根据源地址不同选择不同的动作，这一行为不能通过基于IP的目的地转发取得。</p>
+<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><p>有总长为20字节的首部，如果数据报承载TCP报文段，则每个承载了总长40字节的首部，包括20字节的IP首部和20字节的TCP首部。</p>
+<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>生成一个数据报时，形成的每个数据报具有初始数据报的源地址、目的地址和标识号。每生成一个数据报，标识号+1.因此，<strong>相同的数据报的不同分片，应当拥有相同的标识号，代表来自同一个数据报。</strong>同时提供一个标志比特，最后一个片置为0，其他的置为1.使用偏移字段来标识该片位于数据包的哪个位置。</p>
+<p>实际偏移量 = 段偏移量*8Byte。计算需要多少个分片时，应去掉IP头的20个字节。</p>
+<h4 id="IPv4编址"><a href="#IPv4编址" class="headerlink" title="IPv4编址"></a>IPv4编址</h4><p>主机与通信链路之间的边界叫做接口。每台主机与路由器都能发送和接受IP数据报，因此要求每台主机和路由器接口都有自己的IP地址。 <strong>从技术上讲，一个IP地址与一个接口相关联，而不是与包括该接口的主机和路由器相关联。</strong>换句话说，一个路由器或主机可以拥有多个接口，即多个IP地址，分别连接不同的设备。</p>
+<p>a.b.c.d/x，至高x位是网络号，后32-x位是主机号。转发数据报时仅需考虑前x位。</p>
+<p>第一跳路由地址， 通常称为默认网关。</p>
+<h5 id="DHCP动态地址配置协议"><a href="#DHCP动态地址配置协议" class="headerlink" title="DHCP动态地址配置协议"></a>DHCP动态地址配置协议</h5><p>当一台设备接入网络时，发生以下四个步骤：</p>
+<h6 id="DHCP服务器发现"><a href="#DHCP服务器发现" class="headerlink" title="DHCP服务器发现"></a>DHCP服务器发现</h6><p>通过DHCP服务器发现报文来完成，通过广播地址实现，向本子网内所有的设备转发此报文。</p>
+<h6 id="DHCP服务器提供"><a href="#DHCP服务器提供" class="headerlink" title="DHCP服务器提供"></a>DHCP服务器提供</h6><p>DHCP服务器收到一个DHCP发现报文时，使用DHCP提供报文向客户发出响应，仍使用广播地址向子网内所有地址转发报文。<em><strong>使用广播地址的原因是目前无IP地址的服务器仍然没有接收到DHCP提供报文的地址，因此只能采用广播方式。</strong></em></p>
+<h6 id="DHCP请求"><a href="#DHCP请求" class="headerlink" title="DHCP请求"></a>DHCP请求</h6><p>客户从一个或多个响应报文中选择一个，并向选择的服务器发送DHCP请求报文，回显配置参数。</p>
+<h6 id="DHCP-ACK"><a href="#DHCP-ACK" class="headerlink" title="DHCP ACK"></a>DHCP ACK</h6><p>使用DHCP ACK参数响应DHCP请求报文，确认请求的参数。</p>
+<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>使用NAT转换表，向外部网络隐藏内部网络的细节。</p>
+<p>当内部网络主机发送的报文到达NAT路由器时，在NAT转换表中选择一个端口与该主机的内网IP对应起来，并使用NAT路由器的IP地址替换源IP地址，向外网发送请求。本质上是建立NAT路由器端口与内网IP的映射关系。</p>
+<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h4 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h4><p>扩大的地址容量： 使用128比特的地址长度。加入任播地址，交付给一组主机中的任意一个。</p>
+<p>使用40字节首部。去除首部检验和。</p>
+<p>不允许在中间路由器上分片重新组装，只能在源地址和目的地址执行。</p>
+<h4 id="IPv4到IPv6之间的转换"><a href="#IPv4到IPv6之间的转换" class="headerlink" title="IPv4到IPv6之间的转换"></a>IPv4到IPv6之间的转换</h4><p>使用<strong>隧道</strong>技术：将两台IPv6路由器之间的IPv4路由器视为一个隧道，IPv6数据报整个放到一个IPv4数据报的数据字段中。再发送给隧道中的第一个节点。 </p>
 
       
 	  
@@ -225,7 +240,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Network</a>
         		</li>
       		
 		</ul>
@@ -281,7 +296,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/05/hello-world/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -295,15 +310,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/05/%E5%9C%A8Beego%E4%B8%AD%E4%BD%BF%E7%94%A8HTTPS/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          在Beego中使用HTTPS
-        
-      </div>
-    </a>
   
+    <a href="/2021/03/05/%E5%9C%A8Beego%E4%B8%AD%E4%BD%BF%E7%94%A8HTTPS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在Beego中使用HTTPS</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -347,7 +358,7 @@ if(true){
   	repo: 'blog-comments',
   	owner: '',
   	admin: [''],
-  	id: 'Fri Mar 05 2021 12:25:03 GMT+0800',
+  	id: 'Sun Mar 07 2021 14:28:22 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
