@@ -263,7 +263,7 @@
 <p>所以认为type值大于8时为服务程序，否则为驱动程序。</p>
 <h4 id="3-Drivers-基于驱动程序的自启动"><a href="#3-Drivers-基于驱动程序的自启动" class="headerlink" title="3. Drivers: 基于驱动程序的自启动"></a>3. Drivers: 基于驱动程序的自启动</h4><p>Drivers与Serivices处于同一路径下，区别仅在于Drivers键所对应的值其Type小于等于8，因此Drivers和Services可使用一套函数进行读取，根据Type加以区分。</p>
 <h4 id="4-Scheduled-Tasks-基于计划任务的自启动"><a href="#4-Scheduled-Tasks-基于计划任务的自启动" class="headerlink" title="4. Scheduled Tasks: 基于计划任务的自启动"></a>4. Scheduled Tasks: 基于计划任务的自启动</h4><p>计划任务需要管理员以上的权限进行修改。此部分计划任务通过分析<code>%windir%/System32/Tasks</code>目录下的文件。其中每个文件夹下都有对应的xml格式的文件，其中记录了程序的设置信息。如图所示：</p>
-<p><img src="https://fail.lingfei.xyz/img/images/image-20210529235940211.png" alt="image-20210529235940211"></p>
+<p><img src="/img/images/image-20210529235940211.png" alt="image-20210529235940211"></p>
 <h4 id="5-KnownDlls：-基于已知动态链接库的自启动"><a href="#5-KnownDlls：-基于已知动态链接库的自启动" class="headerlink" title="5. KnownDlls： 基于已知动态链接库的自启动"></a>5. KnownDlls： 基于已知动态链接库的自启动</h4><p>KnownDlls的信息均位于注册表中<code>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\KnownDlls</code>键下，并且对应的dll文件均在文件夹<code>%windir%\Syswow64</code>下。通过查询注册表可以得到每个dll文件的绝对路径。理论上来说可以从对应的dll文件中读取出对应的证书发行者和时间戳等信息，但出于未知的原因，读取证书显示dll文件中没有签名存在。</p>
 <h4 id="6-Image-Hijacks-基于映像劫持的自启动"><a href="#6-Image-Hijacks-基于映像劫持的自启动" class="headerlink" title="6. Image Hijacks: 基于映像劫持的自启动"></a>6. Image Hijacks: 基于映像劫持的自启动</h4><p> 映像劫持是管理员以上权限能够使用的可以在注册表项中替换目标进程执行的一种机制。</p>
 <p>可以实现映像劫持修改的注册表项为：<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Exection Options</code>和<code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\htmlfile\shell\open\command</code></p>
@@ -288,24 +288,24 @@
 </tr>
 </tbody></table>
 <h4 id="2-代码设计"><a href="#2-代码设计" class="headerlink" title="2. 代码设计"></a><strong>2. 代码设计</strong></h4><p>在主程序入口中调用了如下7个函数，分别对应上面提到的六种自启动方式（其中startup和logon均为logon方式自启动）：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530002940337.png" alt="image-20210530002940337"></strong></p>
+<p><strong><img src="/img/images/image-20210530002940337.png" alt="image-20210530002940337"></strong></p>
 <h5 id="2-1-startup"><a href="#2-1-startup" class="headerlink" title="2.1 startup()"></a><strong>2.1 startup()</strong></h5><p>使用_findfirst获取指定的启动目录下的全部文件，遍历文件，输出文件名和文件路径，并通过getTimeStamp函数获得时间戳，通过getPublisher获得发布者。测试结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530101404666.png" alt="image-20210530101404666"></strong></p>
+<p><strong><img src="/img/images/image-20210530101404666.png" alt="image-20210530101404666"></strong></p>
 <h5 id="2-2-logon"><a href="#2-2-logon" class="headerlink" title="2.2 logon()"></a><strong>2.2 logon()</strong></h5><p>使用vector<string>保存注册表键，使用<code>ERROR == RegOpenKeyEx(KEY_CURRENT_USER, _T(keys[i].c_str()), 0, KEY_READ | KEY_WOW64_64KEY, &amp;hKey)</code>打开注册表，使用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">retCode &#x3D; RegQueryInfoKey(</span><br><span class="line">    hKey,                    &#x2F;&#x2F; key handle </span><br><span class="line">    achClass,                &#x2F;&#x2F; buffer for class name </span><br><span class="line">    &amp;cchClassName,           &#x2F;&#x2F; size of class string </span><br><span class="line">    NULL,                    &#x2F;&#x2F; reserved </span><br><span class="line">    &amp;cSubKeys,               &#x2F;&#x2F; number of subkeys </span><br><span class="line">    &amp;cbMaxSubKey,            &#x2F;&#x2F; longest subkey size </span><br><span class="line">    &amp;cchMaxClass,            &#x2F;&#x2F; longest class string </span><br><span class="line">    &amp;cValues,                &#x2F;&#x2F; number of values for this key </span><br><span class="line">    &amp;cchMaxValue,            &#x2F;&#x2F; longest value name </span><br><span class="line">    &amp;cbMaxValueData,         &#x2F;&#x2F; longest value data </span><br><span class="line">    &amp;cbSecurityDescriptor,   &#x2F;&#x2F; security descriptor </span><br><span class="line">    &amp;ftLastWriteTime);       &#x2F;&#x2F; last write time </span><br></pre></td></tr></table></figure>
 
 <p>来读取每个键下值的个数和名字。之后通过<code>RegEnumValue(hKey, i, achValue, &amp;cchValue, NULL, &amp;type, achData, &amp;cchData);</code>来获取每个值的名字和路径。并通过自定义的Format函数和subVarWithPath函数将其中的系统变量转换为正常目录方便后续调用，最后使用getTimeStamp函数和getPublisher函数获取时间戳和发布者。结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530102453338.png" alt="image-20210530102453338"></strong></p>
+<p><strong><img src="/img/images/image-20210530102453338.png" alt="image-20210530102453338"></strong></p>
 <h5 id="2-3-service"><a href="#2-3-service" class="headerlink" title="2.3 service()"></a><strong>2.3 service()</strong></h5><p>使用<code>RegQueryValueEx(hKey, &quot;Type&quot;, 0, &amp;lpType, (LPBYTE)&amp;type, &amp;dwValue);</code>函数读取service对应的目录下每一个子键的Type值，当Type&gt;8时为服务，使用getObjectName、getDescription、getImagePath、getDisplayName依次读取对应的信息。 最后使用getTimeStamp函数和getPublisher函数获取时间戳和发布者。结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530103220847.png" alt="image-20210530103220847"></strong></p>
+<p><strong><img src="/img/images/image-20210530103220847.png" alt="image-20210530103220847"></strong></p>
 <h5 id="2-4-driver"><a href="#2-4-driver" class="headerlink" title="2.4 driver()"></a><strong>2.4 driver()</strong></h5><p>与server()函数基本一致，当Type&lt;=8时判定为driver，测试结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530103450868.png" alt="image-20210530103450868"></strong></p>
+<p><strong><img src="/img/images/image-20210530103450868.png" alt="image-20210530103450868"></strong></p>
 <h5 id="2-5-schedTasks"><a href="#2-5-schedTasks" class="headerlink" title="2.5 schedTasks()"></a><strong>2.5 schedTasks()</strong></h5><p>使用<code>(pTaskService)-&gt;Connect(server, username, domain, password)</code> 与Task建立连接，使用<code>pTaskService-&gt;GetFolder(bstrRootFolder, &amp;pTaskFolder)</code>获取Task的根目录，之后使用EnumrateTasks函数遍历目录，获得每个Task的名称和路径。结果如下：</p>
 <p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530104614933.png" alt="image-20210530104614933"></strong></p>
 <h5 id="2-6-KnownDlls"><a href="#2-6-KnownDlls" class="headerlink" title="2.6 KnownDlls()"></a><strong>2.6 KnownDlls()</strong></h5><p>函数与<code>logon()</code>基本一致，不再赘述。结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530104831757.png" alt="image-20210530104831757"></strong></p>
+<p><strong><img src="/img/images/image-20210530104831757.png" alt="image-20210530104831757"></strong></p>
 <h5 id="2-7-ImageHijacks"><a href="#2-7-ImageHijacks" class="headerlink" title="2.7 ImageHijacks()"></a><strong>2.7 ImageHijacks()</strong></h5><p>依次遍历<code>SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>和<code>SOFTWARE\Classes\htmlfile\shell\open\command</code>两个路径下的值，结果如下：</p>
-<p><strong><img src="https://fail.lingfei.xyz/img/images/image-20210530105054640.png"></strong></p>
+<p><strong><img src="/img/images/image-20210530105054640.png"></strong></p>
 <h5 id="2-8-getTimeStamp-和getPublisher"><a href="#2-8-getTimeStamp-和getPublisher" class="headerlink" title="2.8 getTimeStamp()和getPublisher()"></a><strong>2.8 getTimeStamp()和getPublisher()</strong></h5><p>这两个函数使用了基本相同的实现。开始时了解到可以通过<code>WinVerifyTrust((HWND) INVALID_HANDLE_VALUE, &amp;guidAction, &amp;sWintrudstData)</code>，但实际操作中发现常常会返回0x80092003这样一个错误码。查询<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9339842/verify-digital-signature-within-system32-drivers-folder/9342928#9342928">stackoverflow</a>后发现是由于重定向的原因，添加如下代码后可以正常读取</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (Wow64DisableWow64FsRedirection(&amp;OldValue))</span><br><span class="line">    hr &#x3D; WinVerifyTrust((HWND)INVALID_HANDLE_VALUE, &amp;guidAction, &amp;sWintrustData);</span><br></pre></td></tr></table></figure>
 
@@ -332,7 +332,7 @@
     进行许可。转载请注明出处！
     
       <br>
-      <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88*31.png"/></a>
+      <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/></a>
     
   </div>
 
