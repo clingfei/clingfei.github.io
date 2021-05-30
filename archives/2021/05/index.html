@@ -6,19 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>网络层：数据平面 | Lingfei</title>
+  <title>Archives: 2021/5 | Lingfei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
-<meta property="og:type" content="article">
-<meta property="og:title" content="网络层：数据平面">
-<meta property="og:url" content="http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Lingfei">
+<meta property="og:url" content="http://example.com/archives/2021/05/index.html">
 <meta property="og:site_name" content="Lingfei">
-<meta property="og:description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-07T06:28:22.512Z">
-<meta property="article:modified_time" content="2021-03-07T09:33:06.614Z">
 <meta property="article:author" content="Lingfei">
-<meta property="article:tag" content="Computer Network">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="Lingfei" type="application/atom+xml">
@@ -164,218 +159,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-网络层：数据平面" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      网络层：数据平面
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2021" class="archive-year">2021</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2021/05/30/Windows%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2021-05-30T04:42:27.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-30</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2021/05/30/Windows%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E6%9E%90/">Windows自启动项的查看和分析</a>
     </h1>
   
 
-        
-        <a href="/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" class="archive-article-date">
-  	<time datetime="2021-03-07T06:28:22.512Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <hr>
-<blockquote>
-<p>在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。        </p>
-<p>​                                                                                                             ——Butler Lampson</p>
-</blockquote>
-<span id="more"></span>
-
-<p><strong>网络层的数据平面功能，即网络层中每台路由器的功能，该数据平面决定到达路由器输入链路之一的数据报（即网络层的分组）如何转发到该路由器的输出链路之一。</strong></p>
-<h2 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h2><p>数据平面仅执行<em><strong>转发</strong></em>功能，而远程控制器，即控制平面执行<em><strong>路由选择</strong></em>功能</p>
-<h3 id="基于目的地的转发"><a href="#基于目的地的转发" class="headerlink" title="基于目的地的转发"></a>基于目的地的转发</h3><p>转发表中含有首部，输出两项。路由器检查到达分组首部的一个或多个字段值，通过这些字段值在其转发表中索引，通过这种方法来转发分组。转发仅仅根据目的地址。</p>
-<p>路由器用分组目的地址的前缀与该表中的表项进行匹配，如果存在一个匹配项，则向该匹配项所指出的链路接口转发分组。使用最长前缀匹配原则。</p>
-<h3 id="基于通用的转发"><a href="#基于通用的转发" class="headerlink" title="基于通用的转发"></a>基于通用的转发</h3><p>转发包中含有首部、计数器、动作三个表项。“匹配加动作”。动作包括转发、丢弃、修改字段。转发不仅仅通过目的地址。SDN中采用基于通用的转发</p>
-<p>负载均衡：在发往同一个子网的数据报中，根据源地址不同选择不同的动作，这一行为不能通过基于IP的目的地转发取得。</p>
-<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><p>有总长为20字节的首部，如果数据报承载TCP报文段，则每个承载了总长40字节的首部，包括20字节的IP首部和20字节的TCP首部。</p>
-<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>生成一个数据报时，形成的每个数据报具有初始数据报的源地址、目的地址和标识号。每生成一个数据报，标识号+1.因此，<strong>相同的数据报的不同分片，应当拥有相同的标识号，代表来自同一个数据报。</strong>同时提供一个标志比特，最后一个片置为0，其他的置为1.使用偏移字段来标识该片位于数据包的哪个位置。</p>
-<p>实际偏移量 = 段偏移量*8Byte。计算需要多少个分片时，应去掉IP头的20个字节。</p>
-<h4 id="IPv4编址"><a href="#IPv4编址" class="headerlink" title="IPv4编址"></a>IPv4编址</h4><p>主机与通信链路之间的边界叫做接口。每台主机与路由器都能发送和接受IP数据报，因此要求每台主机和路由器接口都有自己的IP地址。 <strong>从技术上讲，一个IP地址与一个接口相关联，而不是与包括该接口的主机和路由器相关联。</strong>换句话说，一个路由器或主机可以拥有多个接口，即多个IP地址，分别连接不同的设备。</p>
-<p>a.b.c.d/x，至高x位是网络号，后32-x位是主机号。转发数据报时仅需考虑前x位。</p>
-<p>第一跳路由地址， 通常称为默认网关。</p>
-<h5 id="DHCP动态地址配置协议"><a href="#DHCP动态地址配置协议" class="headerlink" title="DHCP动态地址配置协议"></a>DHCP动态地址配置协议</h5><p>当一台设备接入网络时，发生以下四个步骤：</p>
-<h6 id="DHCP服务器发现"><a href="#DHCP服务器发现" class="headerlink" title="DHCP服务器发现"></a>DHCP服务器发现</h6><p>通过DHCP服务器发现报文来完成，通过广播地址实现，向本子网内所有的设备转发此报文。</p>
-<h6 id="DHCP服务器提供"><a href="#DHCP服务器提供" class="headerlink" title="DHCP服务器提供"></a>DHCP服务器提供</h6><p>DHCP服务器收到一个DHCP发现报文时，使用DHCP提供报文向客户发出响应，仍使用广播地址向子网内所有地址转发报文。<em><strong>使用广播地址的原因是目前无IP地址的服务器仍然没有接收到DHCP提供报文的地址，因此只能采用广播方式。</strong></em></p>
-<h6 id="DHCP请求"><a href="#DHCP请求" class="headerlink" title="DHCP请求"></a>DHCP请求</h6><p>客户从一个或多个响应报文中选择一个，并向选择的服务器发送DHCP请求报文，回显配置参数。</p>
-<h6 id="DHCP-ACK"><a href="#DHCP-ACK" class="headerlink" title="DHCP ACK"></a>DHCP ACK</h6><p>使用DHCP ACK参数响应DHCP请求报文，确认请求的参数。</p>
-<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>使用NAT转换表，向外部网络隐藏内部网络的细节。</p>
-<p>当内部网络主机发送的报文到达NAT路由器时，在NAT转换表中选择一个端口与该主机的内网IP对应起来，并使用NAT路由器的IP地址替换源IP地址，向外网发送请求。本质上是建立NAT路由器端口与内网IP的映射关系。</p>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h4 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h4><p>扩大的地址容量： 使用128比特的地址长度。加入任播地址，交付给一组主机中的任意一个。</p>
-<p>使用40字节首部。去除首部检验和。</p>
-<p>不允许在中间路由器上分片重新组装，只能在源地址和目的地址执行。</p>
-<h4 id="IPv4到IPv6之间的转换"><a href="#IPv4到IPv6之间的转换" class="headerlink" title="IPv4到IPv6之间的转换"></a>IPv4到IPv6之间的转换</h4><p>使用<strong>隧道</strong>技术：将两台IPv6路由器之间的IPv4路由器视为一个隧道，IPv6数据报整个放到一个IPv4数据报的数据字段中。再发送给隧道中的第一个节点。 </p>
-
-      
-	  
-
-  <div class="declare">
-    <strong>版权声明：</strong>
-    本作品采用
-    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
-    进行许可。转载请注明出处！
-    
-      <br>
-      <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88*31.png"/></a>
-    
-  </div>
-
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Network</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Windows系统安全</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2021/03/08/%E9%93%BE%E8%B7%AF%E5%B1%82/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          链路层
-        
-      </div>
-    </a>
   
   
-    <a href="/2021/03/05/%E5%9C%A8Beego%E4%B8%AD%E4%BD%BF%E7%94%A8HTTPS/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在Beego中使用HTTPS</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-  
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-
-if(true){
-	var gitalk = new Gitalk({
-  	clientID: '',
-  	clientSecret: '',
-  	repo: 'blog-comments',
-  	owner: '',
-  	admin: [''],
-  	id: 'Sun Mar 07 2021 14:28:22 GMT+0800',
-  	distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
-  
-  
-  
+    
 
 
           </div>
@@ -395,8 +232,8 @@ gitalk.render('gitalk-container')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

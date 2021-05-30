@@ -6,20 +6,30 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>网络层：数据平面 | Lingfei</title>
+  <title>Windows自启动项的查看和分析 | Lingfei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
+  <meta name="description" content="SJTU-IS405课程设计 源代码参见clingfei&#x2F;autoruns (github.com)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网络层：数据平面">
-<meta property="og:url" content="http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/index.html">
+<meta property="og:title" content="Windows自启动项的查看和分析">
+<meta property="og:url" content="http://example.com/2021/05/30/Windows%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E6%9E%90/index.html">
 <meta property="og:site_name" content="Lingfei">
-<meta property="og:description" content="在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。         ​                                                                                                             ——Butler Lampson">
+<meta property="og:description" content="SJTU-IS405课程设计 源代码参见clingfei&#x2F;autoruns (github.com)">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2021-03-07T06:28:22.512Z">
-<meta property="article:modified_time" content="2021-03-07T09:33:06.614Z">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210529235940211.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530002940337.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530101404666.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530102453338.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530103220847.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530103450868.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530104614933.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530104831757.png">
+<meta property="og:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210530105054640.png">
+<meta property="article:published_time" content="2021-05-30T04:42:27.937Z">
+<meta property="article:modified_time" content="2021-05-30T04:56:33.588Z">
 <meta property="article:author" content="Lingfei">
-<meta property="article:tag" content="Computer Network">
+<meta property="article:tag" content="Windows系统安全">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/15991/AppData/Roaming/Typora/typora-user-images/image-20210529235940211.png">
   
     <link rel="alternative" href="/atom.xml" title="Lingfei" type="application/atom+xml">
   
@@ -164,20 +174,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-网络层：数据平面" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Windows自启动项的查看和分析" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      网络层：数据平面
+      Windows自启动项的查看和分析
     </h1>
   
 
         
-        <a href="/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" class="archive-article-date">
-  	<time datetime="2021-03-07T06:28:22.512Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-03-07</time>
+        <a href="/2021/05/30/Windows%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E6%9E%90/" class="archive-article-date">
+  	<time datetime="2021-05-30T04:42:27.937Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-05-30</time>
 </a>
         
       </header>
@@ -185,35 +195,132 @@
     <div class="article-entry" itemprop="articleBody">
       
         <hr>
-<blockquote>
-<p>在一个时刻做一件事，将它做好，一个接口应当俘获一个抽象的最低限度的要件。不要进行一般化，一般化通常是错误的。        </p>
-<p>​                                                                                                             ——Butler Lampson</p>
-</blockquote>
+<p>SJTU-IS405课程设计</p>
+<p>源代码参见<a target="_blank" rel="noopener" href="https://github.com/clingfei/autoruns">clingfei/autoruns (github.com)</a></p>
 <span id="more"></span>
 
-<p><strong>网络层的数据平面功能，即网络层中每台路由器的功能，该数据平面决定到达路由器输入链路之一的数据报（即网络层的分组）如何转发到该路由器的输出链路之一。</strong></p>
-<h2 id="转发"><a href="#转发" class="headerlink" title="转发"></a>转发</h2><p>数据平面仅执行<em><strong>转发</strong></em>功能，而远程控制器，即控制平面执行<em><strong>路由选择</strong></em>功能</p>
-<h3 id="基于目的地的转发"><a href="#基于目的地的转发" class="headerlink" title="基于目的地的转发"></a>基于目的地的转发</h3><p>转发表中含有首部，输出两项。路由器检查到达分组首部的一个或多个字段值，通过这些字段值在其转发表中索引，通过这种方法来转发分组。转发仅仅根据目的地址。</p>
-<p>路由器用分组目的地址的前缀与该表中的表项进行匹配，如果存在一个匹配项，则向该匹配项所指出的链路接口转发分组。使用最长前缀匹配原则。</p>
-<h3 id="基于通用的转发"><a href="#基于通用的转发" class="headerlink" title="基于通用的转发"></a>基于通用的转发</h3><p>转发包中含有首部、计数器、动作三个表项。“匹配加动作”。动作包括转发、丢弃、修改字段。转发不仅仅通过目的地址。SDN中采用基于通用的转发</p>
-<p>负载均衡：在发往同一个子网的数据报中，根据源地址不同选择不同的动作，这一行为不能通过基于IP的目的地转发取得。</p>
-<h2 id="IP协议"><a href="#IP协议" class="headerlink" title="IP协议"></a>IP协议</h2><h3 id="IPv4"><a href="#IPv4" class="headerlink" title="IPv4"></a>IPv4</h3><p>有总长为20字节的首部，如果数据报承载TCP报文段，则每个承载了总长40字节的首部，包括20字节的IP首部和20字节的TCP首部。</p>
-<h4 id="IP数据报分片"><a href="#IP数据报分片" class="headerlink" title="IP数据报分片"></a>IP数据报分片</h4><p>生成一个数据报时，形成的每个数据报具有初始数据报的源地址、目的地址和标识号。每生成一个数据报，标识号+1.因此，<strong>相同的数据报的不同分片，应当拥有相同的标识号，代表来自同一个数据报。</strong>同时提供一个标志比特，最后一个片置为0，其他的置为1.使用偏移字段来标识该片位于数据包的哪个位置。</p>
-<p>实际偏移量 = 段偏移量*8Byte。计算需要多少个分片时，应去掉IP头的20个字节。</p>
-<h4 id="IPv4编址"><a href="#IPv4编址" class="headerlink" title="IPv4编址"></a>IPv4编址</h4><p>主机与通信链路之间的边界叫做接口。每台主机与路由器都能发送和接受IP数据报，因此要求每台主机和路由器接口都有自己的IP地址。 <strong>从技术上讲，一个IP地址与一个接口相关联，而不是与包括该接口的主机和路由器相关联。</strong>换句话说，一个路由器或主机可以拥有多个接口，即多个IP地址，分别连接不同的设备。</p>
-<p>a.b.c.d/x，至高x位是网络号，后32-x位是主机号。转发数据报时仅需考虑前x位。</p>
-<p>第一跳路由地址， 通常称为默认网关。</p>
-<h5 id="DHCP动态地址配置协议"><a href="#DHCP动态地址配置协议" class="headerlink" title="DHCP动态地址配置协议"></a>DHCP动态地址配置协议</h5><p>当一台设备接入网络时，发生以下四个步骤：</p>
-<h6 id="DHCP服务器发现"><a href="#DHCP服务器发现" class="headerlink" title="DHCP服务器发现"></a>DHCP服务器发现</h6><p>通过DHCP服务器发现报文来完成，通过广播地址实现，向本子网内所有的设备转发此报文。</p>
-<h6 id="DHCP服务器提供"><a href="#DHCP服务器提供" class="headerlink" title="DHCP服务器提供"></a>DHCP服务器提供</h6><p>DHCP服务器收到一个DHCP发现报文时，使用DHCP提供报文向客户发出响应，仍使用广播地址向子网内所有地址转发报文。<em><strong>使用广播地址的原因是目前无IP地址的服务器仍然没有接收到DHCP提供报文的地址，因此只能采用广播方式。</strong></em></p>
-<h6 id="DHCP请求"><a href="#DHCP请求" class="headerlink" title="DHCP请求"></a>DHCP请求</h6><p>客户从一个或多个响应报文中选择一个，并向选择的服务器发送DHCP请求报文，回显配置参数。</p>
-<h6 id="DHCP-ACK"><a href="#DHCP-ACK" class="headerlink" title="DHCP ACK"></a>DHCP ACK</h6><p>使用DHCP ACK参数响应DHCP请求报文，确认请求的参数。</p>
-<h4 id="NAT"><a href="#NAT" class="headerlink" title="NAT"></a>NAT</h4><p>使用NAT转换表，向外部网络隐藏内部网络的细节。</p>
-<p>当内部网络主机发送的报文到达NAT路由器时，在NAT转换表中选择一个端口与该主机的内网IP对应起来，并使用NAT路由器的IP地址替换源IP地址，向外网发送请求。本质上是建立NAT路由器端口与内网IP的映射关系。</p>
-<h3 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h3><h4 id="数据报格式"><a href="#数据报格式" class="headerlink" title="数据报格式"></a>数据报格式</h4><p>扩大的地址容量： 使用128比特的地址长度。加入任播地址，交付给一组主机中的任意一个。</p>
-<p>使用40字节首部。去除首部检验和。</p>
-<p>不允许在中间路由器上分片重新组装，只能在源地址和目的地址执行。</p>
-<h4 id="IPv4到IPv6之间的转换"><a href="#IPv4到IPv6之间的转换" class="headerlink" title="IPv4到IPv6之间的转换"></a>IPv4到IPv6之间的转换</h4><p>使用<strong>隧道</strong>技术：将两台IPv6路由器之间的IPv4路由器视为一个隧道，IPv6数据报整个放到一个IPv4数据报的数据字段中。再发送给隧道中的第一个节点。 </p>
+
+<h2 id="一、Windows自启动种类"><a href="#一、Windows自启动种类" class="headerlink" title="一、Windows自启动种类"></a>一、Windows自启动种类</h2><h4 id="1-Logon-基于启动目录和注册表启动"><a href="#1-Logon-基于启动目录和注册表启动" class="headerlink" title="1. Logon:基于启动目录和注册表启动"></a>1. Logon:基于启动目录和注册表启动</h4><ul>
+<li><p>基于Windows启动目录的自启动</p>
+<p>在Windows NT 6.x内核中，存在两个启动目录，分别为<code>%USERPROFILE%\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup</code>和<code>%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup</code>，其中前者是当前登陆用户的启动目录，随用户登录而启动，后者是系统自身的启动目录，在系统启动后执行。</p>
+<p>当切换用户后，重新启动只会执行<code>%ProgramData%\Microsoft\Windows\Start Menu\Programs\Startup</code>目录下的程序。</p>
+</li>
+<li><p>基于注册表的自启动</p>
+<p>在注册表如下路径下的程序将会开机自启动：</p>
+<p><code>HKLM/HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Run\</code></p>
+<p><code>HKLM/HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run</code>    </p>
+<p><code>HKLM/HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce\</code></p>
+<p><code>HKLM/HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnceEx\</code></p>
+<p>在64位系统中，还存在重定向的注册表路径：</p>
+<p><code>HKLM/HKCU\Software\Wow6432Node\Microsoft\Windows\CurrentVersion\Run\</code></p>
+<p>当运行32位程序，wow64会截取程序对注册表HKLM/Software的访问，并重定向到HKLM/Software/Wow6432Node</p>
+<p>事实上，需要重定向的键还包括</p>
+<ul>
+<li><p><code>HKEY_CLASSES_ROOT</code></p>
+</li>
+<li><p><code>HKEY_CURRENT_USER/Software/Classes</code></p>
+</li>
+<li><p><code>HKEY_LOCAL_MACHINE/Software</code></p>
+</li>
+<li><p><code>HKEY_USERS/*/Software/Classes</code></p>
+</li>
+<li><p><code>HKEY_USERS/*_Classes</code></p>
+</li>
+</ul>
+<p>当运行32位的程序时，其注册信息会被重定向到下面的键中:</p>
+<ul>
+<li><code>HKEY_CLASSES_ROOT/WOW6432node</code></li>
+<li><code>HKEY_CURRENT_USER/Software/Classes/WOW6432node</code></li>
+<li><code>HKEY_LOCAL_MACHINE/Software/wow6432node</code></li>
+<li><code>HKEY_USERS/*/Software/Classes/WOW6432node</code></li>
+<li><code>HKEY_USERS/*_Classes/WOW6432node</code></li>
+</ul>
+</li>
+</ul>
+<p>在HKLM和HKCU下键值主要有以下两个区别：</p>
+<ol>
+<li>自启动生效时间：<ul>
+<li>HKLM在计算机启动时生效</li>
+<li>HKCU在用户登录时生效</li>
+</ul>
+</li>
+<li>写入的权限问题：<ul>
+<li>HKLM只有管理员权限才能写入</li>
+<li>HKCU当前用户即可写入</li>
+</ul>
+</li>
+</ol>
+<h4 id="2-Services：基于系统服务的自启动"><a href="#2-Services：基于系统服务的自启动" class="headerlink" title="2. Services：基于系统服务的自启动"></a>2. Services：基于系统服务的自启动</h4><p>​    服务程序是后台运行的进程，常用来执行特定的任务，不需要和用户进行交互。</p>
+<p>​    服务程序的配置数据位于注册表如下键值：<code>HKLM\System\CurrentControlSet\Services</code></p>
+<p>​    服务的基本信息：</p>
+<ul>
+<li>显示名称：DisplayName             REG_SZ类型</li>
+<li>服务描述：Description                REG_SZ类型</li>
+<li>可执行文件路径：ImagePath     REG_EXPAND_SZ类型</li>
+<li>登陆身份账户：ObjectName       REG_SZ类型</li>
+</ul>
+<p>​     服务分为如下几种类型：<br>| Value Name | Value Setting Description |<br>| :—————————-: | :—————————-: |<br>|    SERVICE_KERNEL_DRIVER(1)    |         Device driver          |<br>| SERVICE_FILE_SYSTEM_DERIVER(2) | Kernel-mode file system driver |<br>|       SERVICE_ADAPTER(4)       |            Obsolete            |<br>| SERVICE_RECOGNIZER_DRIVER(8) | File system recognizer driver |<br>| SERVICE_WIN32_OWN_PROCESS(16) | The service runs in a process that hosts only one service. |<br>| SERVICE_WIN32_SHARE_PROCESS(32) | The service runs in a process that hosts multiple services. |</p>
+<p>所以认为type值大于8时为服务程序，否则为驱动程序。</p>
+<h4 id="3-Drivers-基于驱动程序的自启动"><a href="#3-Drivers-基于驱动程序的自启动" class="headerlink" title="3. Drivers: 基于驱动程序的自启动"></a>3. Drivers: 基于驱动程序的自启动</h4><p>Drivers与Serivices处于同一路径下，区别仅在于Drivers键所对应的值其Type小于等于8，因此Drivers和Services可使用一套函数进行读取，根据Type加以区分。</p>
+<h4 id="4-Scheduled-Tasks-基于计划任务的自启动"><a href="#4-Scheduled-Tasks-基于计划任务的自启动" class="headerlink" title="4. Scheduled Tasks: 基于计划任务的自启动"></a>4. Scheduled Tasks: 基于计划任务的自启动</h4><p>计划任务需要管理员以上的权限进行修改。此部分计划任务通过分析<code>%windir%/System32/Tasks</code>目录下的文件。其中每个文件夹下都有对应的xml格式的文件，其中记录了程序的设置信息。如图所示：</p>
+<p><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210529235940211.png" alt="image-20210529235940211"></p>
+<h4 id="5-KnownDlls：-基于已知动态链接库的自启动"><a href="#5-KnownDlls：-基于已知动态链接库的自启动" class="headerlink" title="5. KnownDlls： 基于已知动态链接库的自启动"></a>5. KnownDlls： 基于已知动态链接库的自启动</h4><p>KnownDlls的信息均位于注册表中<code>HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\KnownDlls</code>键下，并且对应的dll文件均在文件夹<code>%windir%\Syswow64</code>下。通过查询注册表可以得到每个dll文件的绝对路径。理论上来说可以从对应的dll文件中读取出对应的证书发行者和时间戳等信息，但出于未知的原因，读取证书显示dll文件中没有签名存在。</p>
+<h4 id="6-Image-Hijacks-基于映像劫持的自启动"><a href="#6-Image-Hijacks-基于映像劫持的自启动" class="headerlink" title="6. Image Hijacks: 基于映像劫持的自启动"></a>6. Image Hijacks: 基于映像劫持的自启动</h4><p> 映像劫持是管理员以上权限能够使用的可以在注册表项中替换目标进程执行的一种机制。</p>
+<p>可以实现映像劫持修改的注册表项为：<code>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Exection Options</code>和<code>HKEY_LOCAL_MACHINE\SOFTWARE\Classes\htmlfile\shell\open\command</code></p>
+<h2 id="二、设计实现"><a href="#二、设计实现" class="headerlink" title="二、设计实现"></a>二、设计实现</h2><h4 id="1-实验环境"><a href="#1-实验环境" class="headerlink" title="1.实验环境"></a>1.实验环境</h4><table>
+<thead>
+<tr>
+<th align="center"><strong>系统</strong></th>
+<th align="center"><strong>Windows 7 专业版</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><strong>编译器</strong></td>
+<td align="center"><strong>Microsoft Visual Studio 2010</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>语言</strong></td>
+<td align="center"><strong>C++</strong></td>
+</tr>
+<tr>
+<td align="center"><strong>字符集</strong></td>
+<td align="center"><strong>使用多字节字符集</strong></td>
+</tr>
+</tbody></table>
+<h4 id="2-代码设计"><a href="#2-代码设计" class="headerlink" title="2. 代码设计"></a><strong>2. 代码设计</strong></h4><p>在主程序入口中调用了如下7个函数，分别对应上面提到的六种自启动方式（其中startup和logon均为logon方式自启动）：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530002940337.png" alt="image-20210530002940337"></strong></p>
+<h5 id="2-1-startup"><a href="#2-1-startup" class="headerlink" title="2.1 startup()"></a><strong>2.1 startup()</strong></h5><p>使用_findfirst获取指定的启动目录下的全部文件，遍历文件，输出文件名和文件路径，并通过getTimeStamp函数获得时间戳，通过getPublisher获得发布者。测试结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530101404666.png" alt="image-20210530101404666"></strong></p>
+<h5 id="2-2-logon"><a href="#2-2-logon" class="headerlink" title="2.2 logon()"></a><strong>2.2 logon()</strong></h5><p>使用vector<string>保存注册表键，使用<code>ERROR == RegOpenKeyEx(KEY_CURRENT_USER, _T(keys[i].c_str()), 0, KEY_READ | KEY_WOW64_64KEY, &amp;hKey)</code>打开注册表，使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">retCode &#x3D; RegQueryInfoKey(</span><br><span class="line">    hKey,                    &#x2F;&#x2F; key handle </span><br><span class="line">    achClass,                &#x2F;&#x2F; buffer for class name </span><br><span class="line">    &amp;cchClassName,           &#x2F;&#x2F; size of class string </span><br><span class="line">    NULL,                    &#x2F;&#x2F; reserved </span><br><span class="line">    &amp;cSubKeys,               &#x2F;&#x2F; number of subkeys </span><br><span class="line">    &amp;cbMaxSubKey,            &#x2F;&#x2F; longest subkey size </span><br><span class="line">    &amp;cchMaxClass,            &#x2F;&#x2F; longest class string </span><br><span class="line">    &amp;cValues,                &#x2F;&#x2F; number of values for this key </span><br><span class="line">    &amp;cchMaxValue,            &#x2F;&#x2F; longest value name </span><br><span class="line">    &amp;cbMaxValueData,         &#x2F;&#x2F; longest value data </span><br><span class="line">    &amp;cbSecurityDescriptor,   &#x2F;&#x2F; security descriptor </span><br><span class="line">    &amp;ftLastWriteTime);       &#x2F;&#x2F; last write time </span><br></pre></td></tr></table></figure>
+
+<p>来读取每个键下值的个数和名字。之后通过<code>RegEnumValue(hKey, i, achValue, &amp;cchValue, NULL, &amp;type, achData, &amp;cchData);</code>来获取每个值的名字和路径。并通过自定义的Format函数和subVarWithPath函数将其中的系统变量转换为正常目录方便后续调用，最后使用getTimeStamp函数和getPublisher函数获取时间戳和发布者。结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530102453338.png" alt="image-20210530102453338"></strong></p>
+<h5 id="2-3-service"><a href="#2-3-service" class="headerlink" title="2.3 service()"></a><strong>2.3 service()</strong></h5><p>使用<code>RegQueryValueEx(hKey, &quot;Type&quot;, 0, &amp;lpType, (LPBYTE)&amp;type, &amp;dwValue);</code>函数读取service对应的目录下每一个子键的Type值，当Type&gt;8时为服务，使用getObjectName、getDescription、getImagePath、getDisplayName依次读取对应的信息。 最后使用getTimeStamp函数和getPublisher函数获取时间戳和发布者。结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530103220847.png" alt="image-20210530103220847"></strong></p>
+<h5 id="2-4-driver"><a href="#2-4-driver" class="headerlink" title="2.4 driver()"></a><strong>2.4 driver()</strong></h5><p>与server()函数基本一致，当Type&lt;=8时判定为driver，测试结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530103450868.png" alt="image-20210530103450868"></strong></p>
+<h5 id="2-5-schedTasks"><a href="#2-5-schedTasks" class="headerlink" title="2.5 schedTasks()"></a><strong>2.5 schedTasks()</strong></h5><p>使用<code>(pTaskService)-&gt;Connect(server, username, domain, password)</code> 与Task建立连接，使用<code>pTaskService-&gt;GetFolder(bstrRootFolder, &amp;pTaskFolder)</code>获取Task的根目录，之后使用EnumrateTasks函数遍历目录，获得每个Task的名称和路径。结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530104614933.png" alt="image-20210530104614933"></strong></p>
+<h5 id="2-6-KnownDlls"><a href="#2-6-KnownDlls" class="headerlink" title="2.6 KnownDlls()"></a><strong>2.6 KnownDlls()</strong></h5><p>函数与<code>logon()</code>基本一致，不再赘述。结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530104831757.png" alt="image-20210530104831757"></strong></p>
+<h5 id="2-7-ImageHijacks"><a href="#2-7-ImageHijacks" class="headerlink" title="2.7 ImageHijacks()"></a><strong>2.7 ImageHijacks()</strong></h5><p>依次遍历<code>SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options</code>和<code>SOFTWARE\Classes\htmlfile\shell\open\command</code>两个路径下的值，结果如下：</p>
+<p><strong><img src="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20210530105054640.png" alt="image-20210530105054640"></strong></p>
+<h5 id="2-8-getTimeStamp-和getPublisher"><a href="#2-8-getTimeStamp-和getPublisher" class="headerlink" title="2.8 getTimeStamp()和getPublisher()"></a><strong>2.8 getTimeStamp()和getPublisher()</strong></h5><p>这两个函数使用了基本相同的实现。开始时了解到可以通过<code>WinVerifyTrust((HWND) INVALID_HANDLE_VALUE, &amp;guidAction, &amp;sWintrudstData)</code>，但实际操作中发现常常会返回0x80092003这样一个错误码。查询<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/9339842/verify-digital-signature-within-system32-drivers-folder/9342928#9342928">stackoverflow</a>后发现是由于重定向的原因，添加如下代码后可以正常读取</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if (Wow64DisableWow64FsRedirection(&amp;OldValue))</span><br><span class="line">    hr &#x3D; WinVerifyTrust((HWND)INVALID_HANDLE_VALUE, &amp;guidAction, &amp;sWintrustData);</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、遇到的问题"><a href="#三、遇到的问题" class="headerlink" title="三、遇到的问题"></a>三、遇到的问题</h2><ol>
+<li>在编写代码时遇到的最大的问题就是各种不同字符串之间的转换。LPCSTR、LPCWSTR、BSTR、string、CString等不同类型的字符串之间的转化为我造成了极大的困扰，通过查阅资料掌握了使用CString作为中间值在不同的字符串之间转换的方法，并编写了<code>stringToLpcwstr(string path)</code>等函数方便代码复用。</li>
+<li>在使用getTimeStamp和getPublisher时，相当大一部分的系统文件和动态链接库输出No signature found on the file.一开始认为可能是函数出现问题，比如没有权限等，但仔细查阅微软API官方文档后，依然没能解决问题、</li>
+</ol>
+<h2 id="四、Reference"><a href="#四、Reference" class="headerlink" title="四、Reference"></a>四、Reference</h2><p>1.<a target="_blank" rel="noopener" href="http://www.bypassav.online/regedit-autorun/">【攻防】这可能是你见过的最全的windows自启动方式了 | BypassAV</a></p>
+<p>2.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/previous-versions/windows/embedded/ms891453(v=msdn.10)">RegEnumKeyEx (Windows CE 5.0) | Microsoft Docs</a></p>
+<p>3.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/previous-versions/windows/embedded/ms891462(v=msdn.10)">RegQueryValueEx (Windows CE 5.0) | Microsoft Docs</a></p>
+<p>4.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/wintrust/ns-wintrust-wintrust_file_info">WINTRUST_FILE_INFO (wintrust.h) - Win32 apps | Microsoft Docs</a></p>
+<p>5.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/sysinfo/enumerating-registry-subkeys">Enumerating Registry Subkeys - Win32 apps | Microsoft Docs</a></p>
+<p>6.<a target="_blank" rel="noopener" href="https://docs.microsoft.com/en-us/windows/win32/api/wintrust/nf-wintrust-winverifytrust">WinVerifyTrust function (wintrust.h) - Win32 apps | Microsoft Docs</a></p>
+<p>7.<a target="_blank" rel="noopener" href="https://uknowsec.cn/posts/uncategorized/%E6%9D%83%E9%99%90%E7%BB%B4%E6%8C%81-%E6%B3%A8%E5%86%8C%E8%A1%A8.html">权限维持-注册表 · Uknow - Stay hungry Stay foolish (uknowsec.cn)</a></p>
+<p>8.<a target="_blank" rel="noopener" href="https://www.qingsword.com/qing/180.html">Windows系统IFEO映像劫持分析 - QingSword.COM</a></p>
 
       
 	  
@@ -240,7 +347,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Computer Network</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Windows系统安全</a>
         		</li>
       		
 		</ul>
@@ -296,7 +403,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/03/07/%E7%BD%91%E7%BB%9C%E5%B1%82%EF%BC%9A%E6%95%B0%E6%8D%AE%E5%B9%B3%E9%9D%A2/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/05/30/Windows%E8%87%AA%E5%90%AF%E5%8A%A8%E9%A1%B9%E7%9A%84%E6%9F%A5%E7%9C%8B%E5%92%8C%E5%88%86%E6%9E%90/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -310,18 +417,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2021/03/08/%E9%93%BE%E8%B7%AF%E5%B1%82/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          链路层
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/03/05/%E5%9C%A8Beego%E4%B8%AD%E4%BD%BF%E7%94%A8HTTPS/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">在Beego中使用HTTPS</div>
+    <a href="/2021/03/08/%E9%93%BE%E8%B7%AF%E5%B1%82/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">链路层</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -367,7 +465,7 @@ if(true){
   	repo: 'blog-comments',
   	owner: '',
   	admin: [''],
-  	id: 'Sun Mar 07 2021 14:28:22 GMT+0800',
+  	id: 'Sun May 30 2021 12:42:27 GMT+0800',
   	distractionFreeMode: 'true'
 })
 gitalk.render('gitalk-container') 
