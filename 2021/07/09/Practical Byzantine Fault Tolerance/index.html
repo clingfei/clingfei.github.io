@@ -376,6 +376,19 @@
         </div>
         
         
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#primary-backup"><span class="toc-number">1.</span> <span class="toc-text">primary-backup</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quorums"><span class="toc-number">2.</span> <span class="toc-text">Quorums</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Algorithm"><span class="toc-number">3.</span> <span class="toc-text">Algorithm</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#The-Client"><span class="toc-number">3.0.1.</span> <span class="toc-text">The Client</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Normal-Case-Operation"><span class="toc-number">3.0.2.</span> <span class="toc-text">Normal-Case Operation</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#pre-prepare"><span class="toc-number">3.0.2.1.</span> <span class="toc-text">pre-prepare</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#prepare"><span class="toc-number">3.0.2.2.</span> <span class="toc-text">prepare</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#commit"><span class="toc-number">3.0.2.3.</span> <span class="toc-text">commit</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Garbage-Collection"><span class="toc-number">3.0.3.</span> <span class="toc-text">Garbage Collection</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#View-Change"><span class="toc-number">3.0.4.</span> <span class="toc-text">View Change</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Reference"><span class="toc-number">3.0.5.</span> <span class="toc-text">Reference</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
     </div>
 </aside>
 
@@ -389,26 +402,22 @@
 
   
   
-  <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-<script type="text/javascript">
-
-if(true){
-	var gitalk = new Gitalk({
-  	clientID: '',
-  	clientSecret: '',
-  	repo: 'blog-comments',
-  	owner: '',
-  	admin: [''],
-  	id: 'Fri Jul 09 2021 16:13:39 GMT+0800',
-  	distractionFreeMode: 'true'
-})
-gitalk.render('gitalk-container') 
-}
-</script>
   
+  <div id="gitment-ctn"></div> 
+<link rel="stylesheet" href="//imsun.github.io/gitment/style/default.css">
+<script src="//imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  id: "http://example.com/2021/07/09/Practical%20Byzantine%20Fault%20Tolerance/",
+  owner: 'clingfei',
+  repo: 'blog-comments',
+  oauth: {
+    client_id: 'a7ad8cc0bce5968f420c',
+    client_secret: '65a0b403e628c9bbf8cb3c0096eb8e85577ea4fa',
+  },
+})
+gitment.render('gitment-ctn')
+</script>
   
   
 
