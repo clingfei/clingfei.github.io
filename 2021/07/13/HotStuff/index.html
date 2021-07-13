@@ -6,15 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>Tag: 分布式计算 | Lingfei</title>
+  <title>HotStuff：BFT Consensus in the Lens of Blockchain | Lingfei</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Lingfei">
-<meta property="og:url" content="http://example.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E8%AE%A1%E7%AE%97/index.html">
+  <meta name="description" content="HotStuff：BFT Consensus in the Lens of Blockchain 论文阅读">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HotStuff：BFT Consensus in the Lens of Blockchain">
+<meta property="og:url" content="http://example.com/2021/07/13/HotStuff/index.html">
 <meta property="og:site_name" content="Lingfei">
+<meta property="og:description" content="HotStuff：BFT Consensus in the Lens of Blockchain 论文阅读">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://mhy12345.xyz/wp-content/uploads/2020/05/image.png">
+<meta property="og:image" content="https://mhy12345.xyz/wp-content/uploads/2020/05/image-1.png">
+<meta property="og:image" content="https://fail.lingfei.xyz/img/images/hotstuff/01.png">
+<meta property="og:image" content="https://fail.lingfei.xyz/img/images/hotstuff/02.png">
+<meta property="article:published_time" content="2021-07-13T02:48:52.314Z">
+<meta property="article:modified_time" content="2021-07-13T02:59:42.737Z">
 <meta property="article:author" content="Lingfei">
+<meta property="article:tag" content="区块链">
+<meta property="article:tag" content="拜占庭协议">
+<meta property="article:tag" content="HotStuff">
+<meta property="article:tag" content="论文阅读">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://mhy12345.xyz/wp-content/uploads/2020/05/image.png">
   
     <link rel="alternative" href="/atom.xml" title="Lingfei" type="application/atom+xml">
   
@@ -159,96 +172,128 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-HotStuff" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/09/Practical%20Byzantine%20Fault%20Tolerance/" class="archive-article-date">
-  	<time datetime="2021-07-09T08:13:39.207Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-09</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/09/Practical%20Byzantine%20Fault%20Tolerance/">Practical Byzantinee Fault Tolerance(PBFT)</a>
+    <h1 class="article-title" itemprop="name">
+      HotStuff：BFT Consensus in the Lens of Blockchain
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/07/13/HotStuff/" class="archive-article-date">
+  	<time datetime="2021-07-13T02:48:52.314Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>HotStuff：BFT Consensus in the Lens of Blockchain 论文阅读</p>
+</blockquote>
+<span id="more"></span>
+
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>HotSutff是一个leader-based Byzantine fault-tolerant replication protocol</p>
+<p>HotStuff基于拜占庭协议，当网络连接变成异步的，HotStuff选择一个正确的leader按照最大的网络延迟来驱动共识协议，线性时间复杂度。</p>
+<p>HotStuff将传统的BFT和区块链之间建立了联系，允许在一个共同的框架中表达已知的协议。</p>
+<p>在超过100个副本的网络上，HotStuff实现了与BFT-SMaRt相同的延迟，并在Leader故障转移时实现了线性的复杂度，而BFT-SMaRt是平方复杂度。</p>
+<p><em>副本的概念由<a target="_blank" rel="noopener" href="https://blog.csdn.net/software444/article/details/89787410">状态机复制 (State Machine Replication)</a>引入。全异步指网络传输吧不存在上限，半同步指的是网络传输存在未知上限，全同步指存在已知上限。</em></p>
+<p><em>状态机复制的理论基础是：如果集群中的每一个节点上都运行着相同的确定性状态机S，并且所有的状态机刚开始都处于同样的初始状态s0，那么给予状态机相同的输入序列，则这些状态机必然会经过相同的状态转换路径s0-&gt;s1-&gt;s2-&gt;s30&gt;…-&gt;sn，最终达到相同的状态sn，同时生成相同的输出序列{o1(s1),o2(s2),o3(s3),…,on(sn)}</em></p>
+<p><em>执行输入序列过程中，根据同步方式的不同，分为强一致性和最终一致性，若要求对于序列I中的每一个in，都需要所有的服务副本确认成功执行了in，才能执行in+1，则该系统是强一致性的。如果取消此限制，仅仅要求每个副本都执行相同的输入序列I，但是完全各自独立执行而不需要在中间进行同步，那么就有了最终一致性，即各副本都会达到相同的状态，但达到的时间是不确定的。</em></p>
+<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>BFT指的是分布式系统在执行操作时容忍其部件发生任意故障的能力。</p>
+<p>state machine replication(SMR)作为整体提供了一种复制服务，其状态是n个确定性副本的镜像。</p>
+<p>BFT SMT协议用来确保非故障副本就客户端发起服务请求的顺序达成一致。这又确保了n-f无故障副本以相同的方式运行副本，并进而产生相同的响应。通常考虑部分同步通信模型，这些模型在一个全局稳定时间Δ后，所有的未出错副本都能对于指令的顺序及结果产生共识。达成共识必须满足条件n&gt;=3f+1.</p>
+<p>在最初的设想中，BFT SMR典型的系统规模是n=4或n=7，部署在局域网中。但BFT在区块链上的应用需要更大规模的n。与支持bitcoin的permissionless blockchains相比，permissioned blockchain需要一组固定的副本，共同维护有序的分类帐本，换句话说，permissioned blockchains支持SMR。尽管理论上permissioned blockchains支持BFT，但其需要几百上千个副本，并且需要设置更大的Δ来适应更高的通信延迟。</p>
+<p>**Scaling challenge.**部分同步模型中第一个实用的BFT复制解决方案，围绕其核心两阶段范式构建了许多BFT解决方案。一种实际的解决方案是，一个稳定的leader可以在两轮信息交换中达成一个共识。第一个阶段通过包含n-f个投票的quorum certificate(QC)保证了唯一性。第二个阶段保证了下一个leader能够说服replica来向安全的proposal投票。</p>
+<p>一个新的leader收集信心并将其提交给replicas的算法成为view-change，该算法是复制的核心。但view-change算法基于两个阶段，并且在中等规模的系统中也会导致显著的通信损失。此算法需要新的leader从n-f个副本中传递信息，每个副本都需要报告自己知道的QC最高的副本。即使仅仅计算认证耗时，为了传输新的提案，PBFT算法需要消耗O(n^3^)的通信代价。PBFT中，在单次共识达成之前，有O(n)的视图转换，故总体的传输量是O(n^4^)。</p>
+<p>HotStuff算法包含三个核心步骤，第一步允许新的leader节点去选择周围QC最高的副本。第二步允许其他副本在投票环节后改变想法而不需要leader的证明，因此同时降低了时间复杂度和leader协议的复杂度。第三步，在几乎完成所有阶段的共识后，hotStuff很容易并行化来保证频繁的leader更换。</p>
+<p>BFT协议仅在区块链领域拥有非常简单的leader选择制度，例如Tendermint和Casper等。但是这些系统建立在同步的核心上，这些提案是在一个提前定义好的时间间隔后被提出的，这保证了即使在最坏的情况下，依然可以在完成的点对点通信网络中进行传播，这样做放弃了大部分使用的BFT-SMR的称为optimistic responsiveness的解决方案。Responsiveness需要一个non-faulty leader能够根据事实上的消息延迟在短时间内驱动整个协议形成共识，而与消息传输延迟的任何已知上限无关。HotStuff仅仅需要在Optimistic的情况下具有响应性,Optimistic指的是在GST时间到达之后。但该问题的一个难点在于，可能存在一个诚实的replica，拥有最高的QC但leader并不知道。这可以在某些情况下让整个系统关于共识的进展直接卡死。</p>
+<p>HotStuff是第一个拥有如下特点的BFT-SMR协议：</p>
+<ul>
+<li>线性的View Change复杂度：在GST后，任何leader一旦被正确的指定，只需要与O(n)个认证方通信就可产生一次共识。即使leader被替换也是O(n)，因此在最坏的情况下，即大量的leader节点崩溃时，在GST时限后的通信成本最差为O(n^2^).</li>
+<li>Optimistic Responsiveness：在GST后，任何正常的leader一旦被指定，只需要等待最初的n-f个响应来保证其可以创建提案。</li>
+</ul>
+<p>HotStuff的另一个特点是一个新的leader尝试达成共识的协议的通信开销不大于当前的leader节点，这意味着HotStuff支持频繁的节点更替，这样更能保证链的质量，这一点对于区块链非常重要。</p>
+<p>HotStuff对于每个view增加了一个额外的阶段，该阶段的微小开销换取了简化leader更替的协议复杂度，这个交换只对于真实的网络延迟带来的开销，通常这个额外开销远小于delta，并且会远小于之前协议为了实现线性的view change而放弃响应性而带来的开销，通过高效的管道操作，甚至可以让吞吐量不受影响。</p>
+<h2 id="Model"><a href="#Model" class="headerlink" title="Model"></a>Model</h2><p>考虑一个包含n = 3f + 1 个副本的集合，下标i ∈{n}，[n] = {1,2,3,…n}。一个集合F是[n]的子集，f = | F |是具有拜占庭错误的副本的数量，其余的副本是正常的。通常将拜占庭副本定义为受到攻击者操控的副本，攻击者通常知道这些副本的所有内部状态，包括密钥等。</p>
+<p>网络通信是点对点进行的，经过验证的并且是可靠的：一个正常的副本从另一个正常的副本中接收消息，当且仅当后者确实曾经发送了这一消息。广播指的是发送一个副本发送点到点消息到包括自身在内的所有副本。HotStuff采用了Dwork等人在内的部分同步模型，模型存在一个已知的界限Δ和一个未知的全局稳定时间GST。在GST时限过后，副本间的所有通信都顺利到达.</p>
+<p><strong>Cryptographic primitives.</strong>  HotStuffs利用了阈值签名进行加密。在(k,n)阈值签名中，每个副本都具有一个单独的公钥，并且n个副本每一个都有一个唯一的私钥。第i个副本可以使用它的私钥来为消息m生成一个部分签名：ρ<del>i</del>&lt;-tsign<del>i</del>(m)。部分签名{ρ<del>i</del>}<del>i∈I</del>，|I| = k， 并且每个ρ<del>i</del>都能够用来为消息m产生一个数字签名σ&lt;-tcombine(m, ρ<del>i</del>, i∈I)。所有其余的节点都可以使用签名以及tverify函数来验证签名。后续使用k=2f+1作为阈值。</p>
+<p>同时还需要一个哈希函数h将随机长度的输入映射为一个固定长度的输出。哈希函数必须是抗碰撞的，即h(m)可以被看做输入消息唯一的标识符。</p>
+<p>**Complexity measure.**考虑的复杂度度量是认证复杂度，指的是在GST之后，为了获得决策的共识，所有副本i∈[n]从其他副本那里获得的验证器的总和，验证器是一个部分签名或完整签名。认证复杂度在衡量通信复杂度方面很有意义，有以下三点原因：1.和比特复杂度类似，认证复杂度隐藏了一些由于传输方式不同而导致的细节偏差，比如被分装到n个消息中的认证器和被装在一个消息中的认证器具有相同的认证开销。第二，和比特复杂度相比，认证复杂度更能捕获这类迭代达成共识的算法的开销。第三，在实践中，发现生成或验证数字签名，合并部分签名的密码学操作通常是使用它们的协议中计算最为密集的操作，因此验证复杂度同样也是提供了对于计算量的考量。</p>
+<h2 id="Basic-HotStuff"><a href="#Basic-HotStuff" class="headerlink" title="Basic HotStuff"></a>Basic HotStuff</h2><p>算法2给出了Basic HotStuff的解决方案。这个协议在一系列编号单调递增的视图中工作，每一个编号的视图都有唯一的一个leader节点被其他副本公认，所有节点都在其内存中储存一个待执行指令树。所有的树节点包括一个客户端提议的指令、协议的关联元数据和一个父节点链接。节点的分支路径被定义为从该节点触发，沿着父节点链接走到根节点的整条路径。在协议过程中，单调增长的分支被提交，为了提交分支，leader节点需要提议一个能够获得n-f个副本投票支持的分支，而投票分为三个阶段: prepare, pre-commit和commit.</p>
+<p>协议的核心部分是leader节点发起n - f个副本的投票，这个投票的结果被称为仲裁证书(quorum certificate, QC).仲裁证书被关联到一个特定的树节点以及视图编号。tcombine函数可以将n-f个被签名的投票合并成一个可进行合法性验证的仲裁证书。</p>
+<p><em>QC：每个视图都会关联一个QC，用于表明该视图是否获得了足够多副本认可。QC本质是副本节点通过自己的私钥签名的一种凭证。</em></p>
+<h4 id="Phases"><a href="#Phases" class="headerlink" title="Phases"></a>Phases</h4><p><strong>Prepare Phase</strong> 一个新的leader节点协议过程起始于从n - f 个副本中收集NewView消息，副本在进入新的view number时，包括最开始的那个视图，会发送一个NewView消息给leader节点，并且在消息中捎带该副本当前的的prepareQC值，若不存在则发送$$\perp$$.</p>
+<p>leader节点选择一个prepareQC最高的分支，这个值定义为highQC。因为highQC是n - f个副本中最高的，所以没有更高的视图可以做提交决定，因此highQC对应的副本作为leader节点对于该分支来说是最安全的。</p>
+<p>当前的leader仅仅选择最高的prepareQC作为highQC，而不考虑选择一个安全的分支。与PBFT不同，在这个单一leader节点协议中，上述步骤直接跳过，并强制与协议的其他阶段一样产生相同的线性开销。</p>
+<p>leader使用createLeaf方法用一个新的提案扩展highQC.node的尾部，该方法创建一个新的叶节点作为子节点，并在子节点中嵌入父节点的摘要。然后Leader节点使用一个prepare类型消息将新节点发送到所有其他副本。该消息同时包含了highQC以支持后续的安全性验证。</p>
+<p>从Leader接收当前视图的prepare类型消息后，副本r使用safeNode谓词判断是否接受，如果被接受，复制品将带有部分签名(由tsign(r)生成)的prepare类型投票发送给leader节点。</p>
+<p><strong>SAFENODE predicate.</strong> safeNode谓词是协议的核心组成部分。他检查带有QC证明m.justify的提案消息m，并且判断m.node是否安全。一方面，如果m.node的分支是从当前的锁节点lockedQC.node中扩展出来的，那么m.node是安全的并且应该被接受。另一方面，由活跃性规则保证，如果m.justify的视图值高于当前lockedQC,，则副本就接受m。只要两个规则中的任何一个成立，谓词函数就返回真。</p>
+<p><em>liveness rule指的是当前副本发现自己锁定的副本已经过时了，leader的提案节点的父节点已经获得了n-f个投票，自己卡在一个之前的状态毫无意义，因此也会支持leader。safeNode谓词为false意味着副本和leader在lockedQC上有冲突，并且位于同一个视图，此时副本不给leader投票。</em></p>
+<p>**pre-commit phase.**当leader收到n-f个为当前提案curProposal投票时，将他们合并为prepareQC。leader使用pre-commit类型的消息广播prepareQC。一个副本通过pre-commit投票对leader节点作出响应，并对提案进行签名摘要。</p>
+<p><strong>commit phase.</strong> commit阶段类似于pre-commit阶段。leader接收到n-f个pre-commit投票时，它将它们组合成一个precommitQC, 并在commit类型消息中广播，副本用commit投票来响应。此时通过将副本的lockedQC设置为precommitQC, 副本将被锁定在precommitQC上，这在提案变成一个共识决定时保证提案的安全性至关重要。</p>
+<p>**decide phase.**当leader收到n-f个commit的选票时，它将其合并成一个commitQC.当leader获得了commitQC后，他就将以decide消息的形式将其发送给所有其他的副本。在接收到DECIDE消息时，副本将commitQC中包含的提案视图视为已提交的决策，并在已提交的分支中执行命令。副本将增加viewNumber并启动下一个视图。</p>
+<p><strong>nextView interrupt.</strong> 在所有阶段中，副本都会在当前视图等待由nextView(viewNumber)函数确定的超时时间段。如果nextView(viewNumber)中断等待，副本也会增加viewNumber并开始下一个视图。</p>
+<p>每个阶段的QC：</p>
+<ul>
+<li><p>prepareQC: 表示该仲裁证书曾经获得大多数投票</p>
+</li>
+<li><p>lockedQC: 是一个用于保证安全性的中间量</p>
+</li>
+<li><p>commitQC: 表示决策已经形成了，无论之后出现什么问题，只要有n-f个正确的节点，这一决策都不会被推翻。</p>
+</li>
+</ul>
+<h2 id="Chained-HotStuff"><a href="#Chained-HotStuff" class="headerlink" title="Chained HotStuff"></a>Chained HotStuff</h2><p>Basic HotStuff中，leader想要提交一个提案，需要三个步骤。这些步骤仅仅从副本处收集投票，从形式上看非常相似。Chained HotStuff里面，对其进行了简化。核心思想是将改变视图的步骤放在prepare阶段来完成，每一个提案都有自己对应的视图，这样能够简化消息的种类个数，并且允许决策的并行化。</p>
+<p>Chained HotStuff中，prepare阶段的投票由leader收集到一个视图中，储存在状态变量genericQC里，之后将genericQC转发给下一个视图的leader，实质上是将下一阶段的职责委托给下一个leader节点（在basic中由pre-commit阶段来完成），下一个leader并不单独进行pre-commit阶段，而是启动一个新的prepare阶段，添加自己的提议。视图v+1的prepare阶段同时充当视图v的pre-commit阶段。视图v+2的prepare阶段同时充当视图v+1的pre-commit阶段和视图v的commit阶段。</p>
+<p><img src="https://mhy12345.xyz/wp-content/uploads/2020/05/image.png" alt="img"></p>
+<p>基于上述结构，Chained HotStuff仅有两种类型的消息——NewView 和GenericPhase。一个通用的QC函数在所有的流水线阶段运行。流水线机制重点在于locking和committing操作，对应了Basic HotStuff的commit和decide阶段。</p>
+<p><em>这里有一个问题，view change是如何进行的？与PBFT的当leader出错时change不同？</em></p>
+<p><strong>Dummy nodes</strong> 某些视图viewNumber中，leader使用的genericQC不能直接引用前一个视图的提议。原因是之前视图的leader未能获得QC，要么是因为有冲突的提议，要么是因为节点的崩溃。为了简化树的结构，createLeaf将genericQC.node扩展为空白节点直到节点的高度与视图编号相等。这样就会导致嵌入在节点b中的QC不能正确引用其父节点，即b.justify.node不能等于b.parent.</p>
+<p><img src="https://mhy12345.xyz/wp-content/uploads/2020/05/image-1.png" alt="img"></p>
+<p><strong>One-Chain, Two-Chain, and Three-Chain.</strong> 当节点b*带有和父节点相同的QC时，即b.justify.node = b.parent，则说他形成了一个One-Chain. 令b’’ = b.justify.node，如果除了形成单链外，还满足b.justify.node = b’’.parent，那么b’‘形成Two-Chain.进一步, b* 生成Three-Chain.</p>
+<p>查看链b = b’.justify.node， b’ = b’’.justify.node, b’’ = b.justify.node，祖先空缺可能发生在任何一个 节点。 这些情况类似于Basic HotStuﬀ的leader未能完成三个阶段中的任何一个阶段，并被nextView中断到下一个视图。</p>
+<p>若b*生成One-Chain，那么b’’的prepare阶段是成功的。因此当副本对b投票时，应该记录了genericQC &lt;- b.justify。即使One-Chain不是直接的，只要One-Chain高于genericQC，就可以安全的更新genericQC。</p>
+<p>若b*形成Two-Chain，则b’的pre-commit阶段成功，因此副本应当更新lockedQC&lt;-B’’.justify。再次注意Two-Chain不是直接的，也可以更新该锁（安全不会中断）。</p>
+<p>如果b*形成Three-Chain，则b的commit阶段成功，并且b成为已提交的决策。</p>
+<h2 id="Event-Driven"><a href="#Event-Driven" class="headerlink" title="Event-Driven"></a>Event-Driven</h2><p>Event-Driven安全性模块：</p>
+<p><img src="https://fail.lingfei.xyz/img/images/hotstuff/01.png" alt="image"></p>
+<p>Event-Driven活跃性模块：</p>
+<p><img src="https://fail.lingfei.xyz/img/images/hotstuff/02.png" alt="image"></p>
+<p>一个公开的实现：<a target="_blank" rel="noopener" href="https://github.com/relab/hotstuff/blob/master/hotstuff.go">hotstuff/hotstuff.go at master · relab/hotstuff (github.com)</a></p>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p>[1] M. Yin, D. Malkhi, M. K. Reiter, G. Golan Gueta, and I. Abraham, “HotStuff: BFT Consensus in the Lens of Blockchain,” Mar 2018.</p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/150705698">HotStuff共识算法详解 - 知乎 (zhihu.com)</a></p>
+<p>[3] <a target="_blank" rel="noopener" href="https://mhy12345.xyz/papers/hotstuff-bft-consensus-in-the-lens-of-blockchain-conclusion/">【论文翻译】HotStuff：BFT Consensus in the Lens of Blockchain – Conclusion – mhy12345</a></p>
+
+      
+	  
+
+  <div class="declare">
+    <strong>版权声明：</strong>
+    本作品采用
+    <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a>
+    进行许可。转载请注明出处！
+    
+      <br>
+      <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png"/></a>
+    
+  </div>
+
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">PBFT</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">区块链</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式计算</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">拜占庭协议</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/07/08/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%AE%B9%E9%94%99/" class="archive-article-date">
-  	<time datetime="2021-07-08T08:12:23.138Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/07/08/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%AE%B9%E9%94%99/">拜占庭容错 Byzantine Fault Tolerance（BFT）</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">区块链</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">分布式计算</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -256,25 +301,151 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">BFT</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">HotStuff</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">论文阅读</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/07/13/HotStuff/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2021/07/09/Practical%20Byzantine%20Fault%20Tolerance/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Practical Byzantinee Fault Tolerance(PBFT)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%91%98%E8%A6%81"><span class="toc-number">1.</span> <span class="toc-text">摘要</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Intro"><span class="toc-number">2.</span> <span class="toc-text">Intro</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Model"><span class="toc-number">3.</span> <span class="toc-text">Model</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Basic-HotStuff"><span class="toc-number">4.</span> <span class="toc-text">Basic HotStuff</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Phases"><span class="toc-number">4.0.1.</span> <span class="toc-text">Phases</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chained-HotStuff"><span class="toc-number">5.</span> <span class="toc-text">Chained HotStuff</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Event-Driven"><span class="toc-number">6.</span> <span class="toc-text">Event-Driven</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference"><span class="toc-number">7.</span> <span class="toc-text">Reference</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+  
+    <div id="gitalk-container"></div>
+    <div id="gitalk-container" style="padding: 0px 30px 0px 30px;"></div> 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+
+if(true){
+	var gitalk = new Gitalk({
+  	clientID: 'a7ad8cc0bce5968f420c',
+  	clientSecret: '65a0b403e628c9bbf8cb3c0096eb8e85577ea4fa',
+  	repo: 'blog-comments',
+  	owner: 'clingfei',
+  	admin: ['clingfei'],
+  	id: 'Tue Jul 13 2021 10:48:52 GMT+0800',
+  	distractionFreeMode: 'true'
+})
+gitalk.render('gitalk-container') 
+}
+</script>
+
+
+  
 
 
           </div>
@@ -294,9 +465,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
