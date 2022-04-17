@@ -6,6 +6,7 @@
 -
   type: zhihu
   icon: 'fab fa-zhihu'
+  url: 'https://www.zhihu.com/people/qffds'
 -
   type: email
   icon: 'fas fa-envelope'

@@ -44,11 +44,12 @@ social:
   email: clf700383@gmail.com             # change to your email address
   links:
     # The first element serves as the copyright owner's link
-    - https://www.zhihu.com/people/qffds     # change to your twitter homepage
+    #- https://www.zhihu.com/people/qffds     # change to your twitter homepage
     - https://github.com/clingfei       # change to your github homepage
+    - https://github.com/clingfei
     # Uncomment below to add more social links
-    # - https://www.facebook.com/username
-    # - https://www.linkedin.com/in/username
+    - https://www.zhihu.com/people/qffds
+    - https://www.linkedin.com/in/username
 
 google_site_verification:               # fill in to your verification string
 
