@@ -14,11 +14,8 @@ order: 4
 # Links
 
 - [无辄的栈: https://www.zackwu.com](https://www.zackwu.com)
-
 - [Timo4810: https://Timo4810.github.io](https://Timo4810.github.io)
-
 - [Okami: https://okamiwong.github.io/](https://okamiwong.github.io/)
-
 - [ipotato: https://ipotato.me/](https://ipotato.me/)
-
 - [lutaonan: https://lutaonan.com/](https://lutaonan.com/)
+- [浅墨的部落格 (0xffffff.org)](https://www.0xffffff.org/)
