@@ -1,7 +1,7 @@
 ---
 declare: true
 title: x86-64 Assembly notes
-categories: [x86-64, Assembly]
+categories: [Assembly]
 tags:
 - X86-64 Assembly 
 ---
