@@ -1,0 +1,185 @@
+---
+declare: true
+title: Raft--In Search of an Understandable Consensus Algorithm
+categories: [Distributed Systems, 论文阅读]
+tags:
+- Distributed Systems
+- 论文阅读
+---
+
+---
+
+## Introduction
+
+共识算法允许一组机器在存在其中某些机器发生错误的情况下连续地工作，因此在构建可靠的大规模软件系统中起到了重要作用。大部分共识基于Paxos实现，但是Paxos难以理解，并且其结构需要进行复杂的修改来支持实际的系统。因此作者提出了一个新的可以更加方便用于系统构建和教学的共识算法，该算法的核心目的是可理解性：我们是否可以定义一个用于真实系统的共识算法并且其远远比Paxos更容易理解？
+
+作者提出了Raft这一新的共识算法。作者采用了特定的技术以提高可理解性，包括解耦合（Raft将选举leader、复制日志和安全分离）状态空间缩小（与Paxos类似，Raft减少了不确定度和服务器之间可能不一致的方式）。
+
+Raft拥有一些新的特性：
+
+- 更强的leader：Raft采用比其他共识算法更强的领导权，例如，日志条目只能够从leader发送到其他服务器，这简化了复制的log的管理，并且更加易于理解。
+- 选举leader：raft使用随机化的计时器来选举leader，这仅仅向许多共识算法中需要的heartbeat添加了少量机制，而简单快速地解决了冲突。
+- 成员改变：Raft改变集群中服务器集合的机制使用了一个新的联合共识算法，其中两种不同的配置在转换期间大部分是重叠的，因此集群能够在配置切换时正常运行。
+
+## Replicated State machines
+
+共识算法通常出现在复制状态机的上下文中，在这种方式下，一系列服务器的状态机计算相同状态的完全一致的拷贝，因此能够在其中某些服务器宕机时继续运行。复制状态机用于在分布式系统中解决容错问题。例如，拥有单个集群leader的系统例如GFS HDFS和RAMCloud等，通常使用分离的复制状态机来管理leader选举以及保存必须在leader出错时保存下来的配置信息。复制状态机的例子包括Chubby和ZooKeeper。
+
+*这里的状态机指的是什么：客户端向Leader发送请求，Leader将请求中的操作记录保存在日志中并扩散到Follower中，并执行client请求的操作，每次操作引起server状态的转换，这些状态迁移过程就组成了状态机的状态迁移过程，状态机相当于server的抽象*
+
+复制状态机通常使用复制日志来实现。如图1所示。每个服务器保存包含状态机按顺序执行的一系列操作的日志，所以每个状态机处理相同的操作序列。因为状态机是确定的，因此每个状态机计算相同的状态并生成相同的输出序列。
+
+![image-20221011235403976.png](https://s2.loli.net/2022/11/11/DQEpRq3HzjIi6G7.png)
+
+保持复制日志的一致是共识算法的工作。服务器的共识模块接收到来自客户端的操作并将其添加到日志中，该共识模块与其他服务器上的共识模块相互通信来保证即使存在某台服务器错误，每个日志最终都包含按照相同顺序排列的相同请求。一旦命令被正确复制，每台服务器的状态机按照日志顺序进行处理，并将输出结果返回给客户端。最终服务器看起来像一台单独的高度可靠的状态机。
+
+用于真实系统的共识算法通常有如下性质：
+
+- 确保所有的非拜占庭条件下的安全性（不会返回不正确的结果给客户端），包括网络延迟、分片、丢包、复制和重排序。
+- 只要大部分服务器是可运行的，并且服务器能够彼此之间以及与客户端通信，就能够正常工作。因此，一个五个服务器组成的经典的集群能够忍受其中任意两台服务器错误。服务器可以停止运行，并可能之后在可靠的存储设备上恢复状态并重新加入集群。
+- 服务器不需要依赖时间戳来确保日志的一致性：错误的时钟和极端情况下的消息延迟在最坏情况下可能造成可用性问题。
+- 在通常情况下，只要大多数服务器对一轮远程过程调用发起响应命令就可以完成，少量的响应缓慢的服务器不会影响整个系统的性能。
+
+## The Raft consensus algorithm
+
+Fig 2总结了算法的流程，Fig 3 给出了算法的关键性质。
+
+Raft通过首先选择一个leader，然后由leader来管理复制后的日志。leader接收来自客户端的日志条目，在其他服务器上复制日志，并告诉这些服务器什么时候应该将日志保存到自己的状态机中。使用Leader简化了对于复制日志的管理。例如，leader可以决定何时向日志中存入新的条目而不需要与其他服务器进行协商，并且数据流以一种简单的方式从leader流向其他的服务器。leader可以宕机或者与其他服务器断联，然后系统会选举出一个新的leader。
+
+*leader断联后是如何恢复系统状态的？如何选举出一个新的leader？Leader断联后，Follower在electionTimeout之内没有收到heartbeat，等到electionTimeout耗尽后，将自己的状态切换到Candidate，currentTerm+1，并向所有的server发送RequestVote，如果大部分server认可Candidate，则Candidate将状态切换到Leader，继续向Follower发送AppendEntries，系统继续推进。*
+
+![image-20221013160417665.png](https://s2.loli.net/2022/11/11/WTBlaXG2bgjct59.png)
+
+raft将共识问题分解成三个独立的子问题：
+
+- leader选举：leader宕机时必须选举出一个新的leader
+- 日志复制：leader必须接收从client发送的日志并在集群中将其复制，并强迫其他日志与自己的日志保持一致。
+- 安全性：Raft的关键的安全特性时Fig 3中描述的状态机安全特性，如果任何服务器将一个特定的日志条目保存到自己的状态机中，那么任何其他的服务器都不能在相同的日志下标处保存一个不同的操作。（*也就是说，所有服务器保存的日志记录的顺序应该是一致的，并且在同一个时间点不存在两个不同的操作，从而保证整个系统的一致性*）
+
+![image-20221013160536606.png](https://s2.loli.net/2022/11/11/eIjWlqRX713MwGk.png)
+
+### Raft basics
+
+raft集群包括多台服务器，通常是五台，可以容忍两台服务器错误。每台服务器必定处于三种状态之一：leader，follower和candidate。正常情况下，一台服务器作为leader，其他的服务器作为follower。follower是被动的，自己不会发送请求而是仅仅响应leader和candidate的请求。leader处理所有的客户端请求，如果client向follower发送请求，则follower将其重定向到leader。第三个状态candidate用于选举一个新的leader。Fig 4展示了状态之间的转换过程。
+
+![image-20221013163644796.png](https://s2.loli.net/2022/11/11/Qexgi9HkM76GjLo.png)
+
+Raft 将实践划分为任意长度的片段，如Fig 5所示。片段使用连续的整数编号。每个片段开始首先进行选举，一个或多个candidate尝试成为leader。在candidate赢得选举之后，然后在剩余的时间内作为leader来工作。某些情况下选举会导致分开的投票，此时任期以没有leader结束，并立刻开始一个新的任期，重新开始选举。raft确保在任何给定的任期内至多只有一个leader。（*什么情况下会选举失败？会不会一直失败？系统如何检测选举失败？如果Candidate收到的VoteGranted没有超过所有server的半数，则选举失败，选举失败可能的情况有：1. 两个Candidate同时发送RequestVote,并且具有相同的Term，因此系统中出现splitvote。2.Candidate的Term太小，被其他server否决。3. 超过半数的server宕机。采用随机化的electionTimeout来尽可能避免splitvote情况，如果Candidate没有成为Leader，则等到下一轮electionTimeout超时或是等到新的Candidate出现*）
+
+![image-20221013164412242.png](https://s2.loli.net/2022/11/11/1y2X6wKLczI8sgC.png)
+
+不同的服务器可能在不同的时间观察到状态转移，并且某些情况下服务器可能不会观察到选举。任期在raft中作为逻辑时钟，允许服务器检测过时的信息，例如过时的leader。每个服务器保存当前的任期数，并随着时间单调增加。当前的任期在服务器通信时改变，如果一个服务器的任期数比另一个小，则将其任期数修改为更大的值，如果candidate或者leader发现自己的任期已经过时了，那么立刻切换为follower状态，如果服务器接收到具有过时的任期数的请求，则拒绝这一请求。
+
+*任期数作为系统的逻辑时钟。不同的服务器各自维护一个任期数，并在通信时检查是否过时，在发现自己的任期数已经过时，则或修改自己的状态，或修改自己的任期数*
+
+raft服务器使用RPC进行通信，并且基本的共识算法只需要两种类型的RPC，RequestVote RPC在选举时被candidate发起，leader发起AppendEntries RPC来复制日志条目和提供heartbeat。还有一种RPC用来在服务器之间传播快照。如果在一定时间内没有收到RPC的响应，那么将会重发RPC。RPC以并行方式执行以获得最好的性能。
+
+### Leader election
+
+Raft使用heartbeat机制来触发leader选举。当服务器以follower状态启动。只要服务器能够从leader或candidate收到有效的RPC调用就始终保持在follower状态。leader通过不携带日志条目的AppendEntries周期性向所有的follower发送heartbeat消息，以保证自己的leader状态。如果一个follower在一个周期内没有收到消息，称为选举超时（election timeout），然后这个follower认为没有可用的leader存在并开始选举新的leader。
+
+为了启动leader选举，follower首先使自己现在的任期数+1，并切换到candidate状态。然后为自己投票并并行向集群中所有的服务器发送RequestVote RPC。candidate始终保持此状态，直到发生下列情况之一：(A)赢得选举(B)另一个服务器赢得选举(C)一段时间过去后没有leader产生。下面分别讨论三种情况。
+
+如果candidate收到来自整个集群中具有相同任期数的服务器的大多数投票，则赢得选举。（*其他的服务器是如何知道应该投票的？投票用的RPC是什么？其他的服务器监听RequestVote RPC，Candidate向所有的服务器发送RequestVote请求*）每个服务器在一个给定的任期内只能选举至多一个candidate。在FIFO的基础上，大多数规则确保在一个任期内至多一个candidate可以赢得选举（Fig 3中的选举安全性)。一旦candidate赢得选举，则向所有其他的服务器发送heartbeat消息来建立自己的leader地位并阻止进行新一轮选举。
+
+在等待投票时，candidate可能从希望成为leader的另一个服务器收到AppendEntries RPC。如果RPC中的任期至少比自己的大，那么candidate认可leader，并将状态修改为follower。如果收到的RPC中的任期比自己的小，则candidate拒绝RPC并继续保留在candidate状态。
+
+第三个可能的情况是candidate既不会赢得选举，也不会有其他的candidate赢得选举：如果许多follower在同一时刻成为candidate，投票可能分散以至于没有candidate会赢得大多数投票。此时每个candidate将会超时并通过使任期+1启动新的选举，并发起另一轮RequestVote RPC调用。然而，如果没有额外的操作，可能会无限重复此过程。
+
+raft使用随机的选举超时来确保很少出现分离选票并且一旦出现可以很快解决。为了在第一时间防止分离选票，选举超时时间从固定的时间间隔中随机选取。由于不同的服务器具有不同的超时时间，所以大部分情况下只有一台服务器会超时，并且在任何其他的服务器超时前赢得胜利并发送heartbeat。同样的机制用来处理分离选票。每个candidate在选举开始时重新选择其随机化的超时时间，并等待超时时间结束后才能开启下一轮选举。这一机制减少了在新的选举中出现另一次分离选票的可能。
+
+### Log replication
+
+一旦leader选举完成，则开始响应客户端的请求。每个客户端请求包含一个将要被复制状态机执行的操作。leader将这个操作作为新的日志条目添加到自己的日志中，然后并发地调用AppendEntries RPC来通知其他服务器复制这一日志条目。当复制成功完成后，leader将这一日志条目应用到自己的状态机中并将操作的结果返回给客户端。（*我的理解是leader在收到请求后，首先记录操作，然后让其他的服务器复制操作，复制完成后才会真正执行客户端请求的操作，并且把操作执行的结果返回给客户端*）如果follower宕机或者运行卡顿，或者网络丢包，leader将会无限重复调用AppendEntries（即使leader已经完成执行客户端请求的命令并将执行结果返回给客户端），直到所有的follower最终保存了所有的日志条目。（*如果有follower退出怎么办？如果follower加入怎么办？follower加入则leader将所有先前的日志或快照发送给该follower，如果follower退出视为该follower宕机*）
+
+![image-20221013185634685.png](https://s2.loli.net/2022/11/11/hjZrPzXk47iuLGV.png)
+
+日志被组织为Fig 6的方式。(*什么叫it is safe for that entry to be applied to state machines*)每个日志条目保存了一个状态机操作和leader接收到该条目时的任期数，日志条目中的任期数用来检测日志之间是否一致并用来确保Fig 3中的性质(Log Matching)。每个日志条目同时拥有一个整数下标，用来表示在日志中的位置。
+
+leader决定何时可以安全地将日志条目加入到状态机，这样的条目被称为已提交（committed）。raft保证已提交的条目时可持续的并且最终被所有可用的状态机执行。一旦创建条目的leader在大多数服务器上复制了这一日志，则该日志就被认为是committed。同时也会提交leader之前的条目以及先前leader创建的条目。leader需要跟踪自己知道的将要被提交的最高的下标，并将该下标包含在将来的AppendEntries RPC（包括heartbeat消息）中以便其他的服务器最终能够发现此下标。一旦follower知道某个日志条目已经被提交，则按照日志中的顺序依次将日志条目应用到自己的状态机（即按照顺序执行日志中的指令）。
+
+作者设计了Raft日志机制在高层次维护不同服务器上的日志的一致性。不仅简化了系统的行为并且使系统的行为是可预测的，并且是确保安全性的重要组件。Raft具有下列属性，一起构成了Fig 3中的Log Matching Property：
+
+- 如果不同日志中的两个条目具有相同的下标和任期，那么二者一定保存了相同的命令。
+- 如果不同日志中的两个条目具有相同的下标和任期，那么这两个日志中在这个条目之前的记录都是相同的。
+
+第一个性质遵循这一事实：leader至多在给定的任期和日志下标所标识的位置创建一个日志条目，并且日志条目绝不会修改自己的位置。第二个性质通过AppendEntries执行的简单一致性检查保证。在发送一个AppendEntries RPC时，leader在其中包含新的条目之前的条目的下标和任期。如果follower没有在日志中找到具有相同下标和任期的条目，则拒绝这一新的条目。一致性检查作为一个归纳步骤：日志初始的空状态满足Log Matching Property，并且一致性检查在新的日志加入时保证Log Matching属性。结果就是，当AppendEntries成功返回时，leader知道follower的日志与自己的日志完全一致。
+
+在正常运行时，leader的日志和follower的日志保持一致，因此AppendEntries的一致性检查从不失败。但是leader宕机会造成日志不一致（旧的leader可能没有完全复制日志中的所有条目）。这种不一致会在一系列的leader和follower宕机中变得更加严重。Fig 7表示了follower的日志可能与新的leader不一致的方式。follower可能有leader中没有的条目，也可能缺少leader中的条目。日志中缺少和额外的条目可能会跨越多个任期。
+
+![image-20221013194527576.png](https://s2.loli.net/2022/11/11/9fBpgiRHbJMNQaV.png)
+
+raft中，leader通过强迫follower中的日志复制自己的日志来处理一致性，这意味着follower日志中与leader冲突的部分将会被覆盖。后面将会证明这一机制在加上几个限制之后是安全的。
+
+为了让follower的日志与自己的日志一致，leader必须找到两个日志一致的最新的日志条目，并清空follower日志在这个条目之后的所有内容，并且向follower发送leader日志中这个日志条目之后的所有条目。所有的这些动作都是对AppendEntries RPC检查的响应。leader为每个follower维护nextIndex，nextIndex是leader将要发送给这一follower的下一个日志条目的下标。当leader刚刚赢得选举时，将所有的nextIndex初始化为自己日志中最后一个下标的后一个值（如果leader日志中最后一个下标为3，就将所有的follower的nextIndex初始化为4）。如果follower的日志与leader的日志不一致，AppendEntries的一致性检查将会在下一次AppendEntries RPC中失败。在遇到失败后，leader使nextIndex-1并重试。最终nextIndex将会达到leader和follower一致的状态。成功后，移除follower在nextIndex之后的日志条目，并将leader之后的条目复制到follower。一旦AppendEntries成功，follower的日志将会与leader保持一致，并且在后续的任期中保持。
+
+如果需要，可以优化协议来减少失败的次数。例如，当拒绝AppendEntries请求时，follower可以包括矛盾的条目的任期和这个任期中保存的第一个下标。leader可以利用这一信息减少nextIndex以绕过所有的这个任期中矛盾的条目。每个有冲突的任期将会需要一个AppendEntries RPC而不是每个条目都需要一个AppendEntries RPC。在实践中，这一优化可能不是必要的，因为服务器错误可能经常发生，因此不会有太多冲突的条目。
+
+通过上述机制 leader将不会需要任何额外的操作来恢复日志一致性，leader只需要开始正常运行，然后日志将会自动收敛到一致状态。leader永远不会覆盖或者删除自己日志中的日志条目，这就是Fig 3中的Leader Append-Only Property。
+
+只要大部分服务器在线，raft就能够接收、复制和执行新的日志条目。在正常情况下新的日志条目将会通过一轮RPC调用复制到集群中的大部分服务器中，并且运行缓慢的follower不会影响整个系统的效率。
+
+### Safety
+
+上面所述的机制不能够保证每台机器以相同的顺序完成相同的操作。例如，follower可能在leader提交几个日志条目时离线，然后可能被选举为leader并且使用新的条目覆盖这些条目，结果是不同的状态机可能以不同的顺序执行指令。
+
+通过限制哪个服务器可以被选举为leader确保leader在任何给定的任期都包含了在先前任期中已经提交的日志条目，即Fig 3中的Leader Completeness Property。
+
+#### Election restriction
+
+Raft保证从选举开始，每个新的leader的日志中都存在之前的任期中已提交的条目，而不需要将这些条目转移给leader。这意味着日志条目只会单向流动，并且leader永远不会覆盖自己的已经存在的日志条目。(Append Only)
+
+除非candidate的日志中包含了所有的已提交的日志条目，否则Raft将在投票过程来阻止candidate赢得选举，candidate在被选举前必须与集群中的大部分服务器通信，意味着每个已提交的条目必定在这些服务器其中之一的日志中。如果candidate的日志至少与这些服务器中的任何其他日志一样是最新（up-to-date）的，那么candidate中就具有所有已提交的条目。RequestVote RPC实现了这一限制：RPC包括了candidate的日志信息，并且如果投票者自己的日志比cadidate的日志更新，那么将会拒绝此次投票。Raft通过比较日志中最后一个条目的下标和任期来比较哪两个日志更新。如果日志中含有有不同任期的条目，那么认为具有更大的任期的日志更新。如果日志以相同的任期结尾，则更长的日志就是更新的。
+
+#### Committing entries from previous terms
+
+一旦条目被保存在大多数服务器上，leader就会知道当前实际胺片的条目已经被提交。如果在提交某个日志条目之前leader宕机，未来的leader将会尝试复制这给条目。leader不能立即断定上一个任期的条目一旦保存在大多数服务器上就已提交。Fig 8表示当旧的日志条目保存在大多数服务器上时，依然可能被未来的leader覆盖。
+
+![image-20221013222358620.png](https://s2.loli.net/2022/11/11/jFUw12Vm5aLnNih.png)
+
+为了消除Fig 8中出现的问题，Raft从来不通过计数副本提交来自先前任期的日志条目。只有来自leader当前任期的日志条目才会通过计数副本的数量来提交，一旦一个条目以这种方式被提交，那么根据Log Matching Property，所有之前的条目将会被间接提交。在某些情况下，leader可以安全地断定先前的日志条目已经被提交（例如，如果某个日志条目被保存在每个服务器上），但是为了简便起见，Raft使用了保守的方式。
+
+Raft在提交规则中引入了额外的复杂度，因为当leader从先前的任期复制日志时，其中保存了先前的任期。在其他的共识算法中，如果新的leader从先前的任期复制日志，那么需要使用新的任期数来复制。Raft的方式使解释日志条目更加容易，因为在不同的日志中维护了相同的任期数。另外Raft中新的leader发送更少的来自先前任期的日志条目，而其他的共识算法需要发送重复的日志条目来重新编号。
+
+#### Follower and candidate crashes
+
+如果follower和candidate宕机，那么发送给该服务器的RequestVote和AppendEntries RPC将会失败。Raft通过无限重复此过程来处理，如果宕机的服务器重启，那么RPC将会成功完成。（*如果leader向follower 发送AppendEntries RPC，返回错误，那么leader不会立刻重发，而是等到heartbeat任期超时后再次发送，这样新加入的和恢复的服务器可以合并处理，从而简化系统的复杂度*）。Raft RPC是幂等的，因此这一机制不会带来任何问题。（*我对幂等的理解是，第一次发送给服务器的RPC如果没有收到，第二次收到了，那么对于整个系统产生的效果是一致的，而不会因为第一次没收到造成系统错误*）。例如，如果follower收到了AppendEntries请求，该请求中包括自己日志中已经包含的日志条目，则follower将会忽略请求中的日志条目。
+
+#### Timing and availability
+
+Raft的安全性不能依赖于定时器:系统不能产生不正确的结果，而某些事件可能比预想的发生的更早或更晚。但是系统的可用性必须依赖于定时器（可用性指的是系统在指定时间内向客户端响应的能力）。例如，如果消息交换比服务器宕机的时间要长，那么candidate将不会保持足够长的时间以赢得选举，而没有稳定的leader，Raft将不会向前推进。
+
+Leader选举是Raft的一个方面，而定时器是其中的关键部分。只要系统满足以下时间要求，Raft就能够选举并维护一个稳定的leader：`broadcastTime<<electionTimeout<<MTBF`。其中broadcastTime是服务器向集群中每个服务器发送RPC所需的平均时间，electionTimeout是选举超时时间，MTBF是单台服务器宕机的时间。broadcastTime应该远小于electionTimout，这样leader能够发送heartbeat来阻止follower启动新一轮选举，同时由于选举超时使用随机数，这一不等式也使系统不会出现分离选票的情况。electionTimeout必须远远MTBF，所以系统能够平稳运行。当leader宕机时，系统将会在选举超时时间内变得不可用，我们希望在整个系统的运行时间中，这一不可用的时间段仅占一小部分。
+
+broadcastTime和MTBF是底层系统的属性，而electionTimeout是我们需要选择的。Raft的RPC通常需要接受方将信息保存在存储器中，因此broadcastTime通常在0.5ms到20ms的范围内，具体取决于存储即使。结果就是选举超时时间应该在10ms~500ms范围内。而MTBF通常是几个月或更多，因此时间要求很容易满足。
+
+## 7 Log compaction
+
+Raft的日志随着包含更多的日志请求而增长，但是在实际的系统中，随着日志的增长会占用更多地内存空间以及需要更多的时间来重放。因此需要某些机制来去除系统中的冗余信息。
+
+snapshot是最简单的压缩方式。在snapshot中，当前完整的系统状态作为快照写入到存储中，然后快照之前的所有的日志都被删除。
+
+增量压缩方法例如log cleaning和log-structured merge trees也是可行的。这些方法一次处理部分数据，所以能够将压缩的负载在时间上均匀分布。首先选择包含了许多已经被删除或覆盖的对象的数据域，然后重写仍然保持活跃的对象并释放多余的空间。这种方式相比快照需要额外的机制和复杂度，因为快照不需要在完整的数据集上进行操作。log cleaning需要修改以适应Raft，而状态机可以使用与snapshot相同的接口实现LSM树。
+
+![image-20221026105953988.png](https://s2.loli.net/2022/11/11/zuiY3ks5l9StFU4.png)
+
+Figure 12说明了Raft的snapshot的基本思路。每个服务器独立地执行快照，仅仅包含自己日志中已经提交的日志条目。大部分工作是状态机将自己的当前状态写入到快照中。raft在快照中包括少量元数据：last included index是日志中最后一个记录的下标（也就是状态机最后一个执行的操作），last included term是对应的任期号。保留这些元数据以支持AppendEntries中为快照后的第一个日志记录执行一致性检查，因为需要前一个日志记录的下标和任期号。当服务器完成了一次快照后，可能删除直到最后一个下标的所有的日志记录。
+
+尽管服务器通常独立地记录快照，但是当leader已经丢弃了要发送给follower的下一个日志时，必须将快照发送到落后的follower。但是这种情况并不常发生：与leader保持一致的follower已经有了这一日志（*由于commit需要保证大多数follower已经将对应command应用到自己的状态机上，并且压缩的日志是已经commit的日志，因此决定了某些状态远远落后于leader的follower是少数*）。但是当出现某个远远落后于leadaer或是集群中新加入某个服务器时，需要leader向其发送快照来使follower保持与系统同步。
+
+leader使用新的RPC InstallSnapshot来向远远落后于follower发送快照。当follower接收到快照时，必须决定如何处理当前的日志。如果快照中包含了接收方不含有的日志，follower丢弃自己的全部日志，使用快照来代替，并且follower可能含有未提交的与快照相矛盾的日志。如果follower接收到的快照与当前日志的前缀相同，即在之前接收到快照之后又接收到了新的日志，说明leader发生了重传，则删除掉被快照覆盖的日志，保留快照之后的日志，因为这些日志依然是有效的。
+
+快照是与Raft的强leader规则相违背的，因为follower可以不通过leader独立计算快照。但是因为当follower计算快照时，整个系统已经达成了共识，因此并不会出现冲突。数据仍然只从leader流向follower，只要follower可以重新组织自己的数据。
+
+考虑另外一种基于leader的，只有leader能够创建快照，然后leader从自身向follower发送快照的方式。这种方式存在两个缺点：1. 从leader向follower发送快照将会浪费网络带宽，并且拖慢快照的过程。每个follower已经有了产生快照所需的所有信息，并且自己产生快照比从leader接收的开销更小。2. leader的实现将会更加复杂，例如leader可能想要并行发送快照和新的日志，以免阻塞新的客户端请求。
+
+提高快照性能的方法：1. 服务器必须决定何时创建快照，如果创建快照过于频繁，则会浪费磁盘带宽和能量。如果创建时间过于不频繁，那么将会有耗尽磁盘容量的风险，并且在重启时重放日志所需的时间更长。一个简单的策略是在日志到达一个固定的长度时创建快照，如果这一长度比快照占用的空间大很多，那么快照引起的磁盘带宽将会很小。2. 创建快照需要一定时间，并且不希望延迟正常的操作。因此采用写时复制技术，新的更新不会影响正在创建的快照。例如作者采用Linux的写时复制技术来创建整个状态机的内存快照。
+
+## 8 Client interaction
+
+Raft的客户端发送所有的请求到leader。当client第一次启动时，随机选择一个服务器进行连接，如果该服务器不是leader，则会拒绝client的连接，并且告诉客户端自己知道的leader。如果leader宕机，客户端的请求将会超时，然后再随机选择一个客户端来重复上述过程。（*但是我有一个问题：会不会选择的这个服务器自己认为自己是leader，而实际上并不是leader，这种情况如何区分？首先如果leader已经不再是leader时，说明已经与大部分服务器失去联系，从而无法达成共识，也就无法提交新的日志，而执行请求中的操作是在日志提交后开始的，因此对于需要写日志的操作，这一问题是不存在的。而对于不需要写入日志的只读请求，在下面采用了两种额外的机制来预防。*）
+
+Raft的目标是实现一个可线性化的语义，即每个操作看起来像是在调用和响应之间的某一个点瞬间完成。然而，Raft可以多次执行一个操作，例如如果leader在提交日志之后，响应client之前宕机，client将会向新的leader重发请求，造成leader再次执行此操作。解决方式是client为每个操作赋一个唯一的序列号。然后状态机跟踪每个client的最新的序列号和相关的响应。如果接收到了一个已经被执行过的序列号，则立即响应而不需要再次执行。
+
+只读的操作不需要向日志中写入内容，但是可能会向client返回过时的数据，因为响应client的leader可能已经被一个新的leader取代（*例如leader与其他服务器断开连接*）。可线性化的读操作不能返回过时的数据并且Raft需要两个额外的预防操作来防止读到过时的数据。首先leader必须具有哪个日志记录已经被提交的最新信息。Leader Completeness Property保证leader维护了所有已经提交的日志记录，但是在任期开始时，可能不知道哪些已经被提交。为了知道提交的日志是哪一部分，需要从任期内提交一些日志记录。Raft通过让每个leader在任期开始时提交一个空白的no-op日志来解决此问题。第二，leader必须在处理只读请求之间检查自己是否已经被废止。Raft要求leader在响应一个只读请求前首先向集群中的大部分服务器发送heartbeat。
+
