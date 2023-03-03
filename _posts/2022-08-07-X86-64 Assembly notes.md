@@ -3,7 +3,7 @@ declare: true
 title: x86-64 Assembly notes
 categories: [Assembly]
 tags:
-- X86-64 Assembly 
+- Assembly 
 ---
 
 ---
