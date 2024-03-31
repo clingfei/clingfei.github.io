@@ -1,0 +1,404 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.3" /><meta property="og:title" content="CS144 Lab Assignments 学习笔记" /><meta property="og:locale" content="en" /><meta name="description" content="clingfei’s blog" /><meta property="og:description" content="clingfei’s blog" /><link rel="canonical" href="https://clingfei.github.io/_posts/CS144-notes/" /><meta property="og:url" content="https://clingfei.github.io/_posts/CS144-notes/" /><meta property="og:site_name" content="clingfei" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-02-05T00:00:00+00:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="CS144 Lab Assignments 学习笔记" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-02-26T14:31:09+00:00","datePublished":"2023-02-05T00:00:00+00:00","description":"clingfei’s blog","headline":"CS144 Lab Assignments 学习笔记","mainEntityOfPage":{"@type":"WebPage","@id":"https://clingfei.github.io/_posts/CS144-notes/"},"url":"https://clingfei.github.io/_posts/CS144-notes/"}</script><title>CS144 Lab Assignments 学习笔记 | clingfei</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="clingfei"><meta name="application-name" content="clingfei"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener('change', () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.notify(); } /* flipMode() */ } /* ModeToggle */ const modeToggle = new ModeToggle(); </script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/favicons/head.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/">clingfei</a></div><div class="site-subtitle font-italic">行则将至</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/clingfei" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="https://www.zhihu.com/people/qffds" aria-label="zhihu" target="_blank" rel="noopener noreferrer"> <i class="fab fa-zhihu"></i> </a> <a href="javascript:location.href = 'mailto:' + ['clf700383','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>CS144 Lab Assignments 学习笔记</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>CS144 Lab Assignments 学习笔记</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1675555200" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Feb 5, 2023 </em> </span> <span> Updated <em class="" data-ts="1677421869" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Feb 26, 2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/clingfei">clingfei</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="4683 words"> <em>26 min</em> read</span></div></div></div><div class="post-content"><hr /><blockquote><p><a href="https://cs144.github.io/">CS 144: Introduction to Computer Networking</a></p></blockquote><h2 id="lab-0"><span class="mr-2">Lab 0</span><a href="#lab-0" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="writing-webget"><span class="mr-2">Writing webget</span><a href="#writing-webget" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>要求使用TCPSocket和Address类实现get_URL函数。get_URL的功能是向指定的host和path发送GET请求，以抓取页面。可以参考<a href="https://cs144.github.io/doc/lab0/class_t_c_p_socket.html">Sponge: TCPSocket Class Reference (cs144.github.io)</a>中的示例来了解类和方法的使用。</p><p>HTTP 请求报文中需要的头部字段和值分别为：</p><ul><li><p>Connection：Close，用于通知host不必等待client后续发送请求，在接收到该请求后发送响应。</p><li><p>Host: host表示被请求的主机URL</p></ul><p>在请求头和请求数据之间存在一个空行，而GET请求没有请求数据，因此以空行结尾。</p><pre><code class="language-C++">void get_URL(const string &amp;host, const string &amp;path) {
+    TCPSocket sock;
+    sock.connect(Address(host, "http"));
+    sock.write("GET " + path + " HTTP/1.1\r\nHost: " + host + "\r\nConnection: close\r\n\r\n");
+    sock.shutdown(SHUT_WR);		//发送完毕，关闭读写
+    while (!sock.eof()) {
+        cout &lt;&lt; sock.read();
+    }
+    sock.close();
+}
+</code></pre><h3 id="an-in-memory-reliable-byte-stream"><span class="mr-2">An in-memory reliable byte stream</span><a href="#an-in-memory-reliable-byte-stream" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>要求实现可靠的字节流的抽象，在输入端写入字节而在输出端按照相同顺序读出字节。实质上相当于一个带有容量限制的队列，发送方从末尾写，接收方从头部读出，已经被读出的字节从队列中删除，以释放内存空间。</p><p>ByteStream定义如下：</p><pre><code class="language-C++">class ByteStream {
+  private:
+    std::string byte_stream = "";
+    size_t _capacity = 0; 
+    size_t bytes_written_count = 0;
+    size_t bytes_read_count = 0;
+    bool _error{};  //!&lt; Flag indicating that the stream suffered an error.
+    bool input_end = false;
+</code></pre><p>初始时byte_stream定义为空字符串，_capacity表示ByteStream容量，bytes_written_count和bytes_read_count分别表示已经向ByteStream中写入和读出的字符数，均定义为size_t类型，初始化为0。input_end为true表示输入已经结束，初始为false。</p><p>byte_stream.cc中成员函数定义如下：</p><pre><code class="language-C++">ByteStream::ByteStream(const size_t capacity) { 
+    _capacity = capacity;
+}
+
+// capacity - byte_stream.size() = remaining_capacity
+size_t ByteStream::write(const string &amp;data) {
+    size_t written = 0;
+    if (data.size() &lt;= remaining_capacity()) {
+        written = data.size();
+        byte_stream += data;
+    } else {
+        written = remaining_capacity();
+        byte_stream += data.substr(0, written);
+    }
+    bytes_written_count += written;
+    return written;
+}
+
+//! \param[in] len bytes will be copied from the output side of the buffer
+string ByteStream::peek_output(const size_t len) const {
+    string res;
+    if (byte_stream.size() &lt;= len) {
+        res = byte_stream;
+    } else {
+        res = byte_stream.substr(0, len); 
+    }
+    return res;
+}
+
+//! \param[in] len bytes will be removed from the output side of the buffer
+void ByteStream::pop_output(const size_t len) { 
+    if (byte_stream.size() &lt;= len) {
+        bytes_read_count += byte_stream.size();
+        byte_stream = "";
+    } else {
+        bytes_read_count += len;
+        byte_stream = byte_stream.substr(len, byte_stream.size() - len);
+    }
+}
+
+//! Read (i.e., copy and then pop) the next "len" bytes of the stream
+//! \param[in] len bytes will be popped and returned
+//! \returns a string
+std::string ByteStream::read(const size_t len) {
+    std::string res = peek_output(len);
+    pop_output(len);
+    return res;
+}
+
+void ByteStream::end_input() { input_end = true; }
+
+bool ByteStream::input_ended() const { return input_end; }
+
+size_t ByteStream::buffer_size() const { return byte_stream.size(); }
+
+bool ByteStream::buffer_empty() const { return byte_stream.empty(); }
+
+bool ByteStream::eof() const { return buffer_empty() &amp;&amp; input_ended(); }
+
+size_t ByteStream::bytes_written() const { return bytes_written_count; }
+
+size_t ByteStream::bytes_read() const { return bytes_read_count; }
+
+size_t ByteStream::remaining_capacity() const { return _capacity - byte_stream.size(); }
+
+</code></pre><p>其中buffer_size和buffer_empty分别表示缓冲区的大小和缓冲区是否为空，buffer即ByteStream类中的byte_stream字符串。读操作分为了两个步骤：先peek后pop，根据测试用例，在peek时应该随之更新bytes_read_count，而不能在完成一个完整的read操作后再更新。在向byte_stream中写入字节时，应该判断是否超出了缓冲区的容量，超出容量的部分直接截断，而无需缓存。</p><p>如何判断是否读到了eof？参照EOF的定义，<em>When the reader has read to the end of the stream, it will reach “EOF” (end of file)</em>。只有当输入方已经不再输入（即input_ended == true）并且缓冲区中的数据已经全部读出（即buffer_empty==true）时，输出端读到了字节流的末尾。</p><h2 id="lab-1"><span class="mr-2">Lab 1</span><a href="#lab-1" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>要求将乱序的子串重排序，合并成连续的顺序正确的ByteStream。ByteStream中的每个字节都有唯一的下标，下标规定了字节的先后顺序。字节实际上分成了两部分：ByteStream中已经排好序的连续子串和unassembled_bytes中尚未排好序 的子串。对于一个起始下标为index的子串，只有当index-1对应的字节已经写入到ByteStream中后，才能够将index对应的子串加入到ByteStream中。因此应该选择有序的数据结构，考虑到重复下标对应的字节仅应保存一次，在合并不同的子串时需要遍历整个数据结构，因此采用set作为unassembled_bytes。</p><p>StreamReassembler类定义如下：</p><pre><code class="language-C++">struct block {
+  std::string data;
+  size_t index;
+  bool eof;
+  block(std::string &amp;s, bool flag, size_t idx) : data(s), index(idx), eof(flag) {}
+  bool operator&lt;(const block &amp;b) const {
+    return index &lt; b.index;
+  }
+};
+
+class StreamReassembler {
+  private:
+    std::set&lt;block&gt; unorder_bytes = std::set&lt;block&gt;();
+
+    ByteStream _output;  //!&lt; The reassembled in-order byte stream
+    size_t _capacity;    //!&lt; The maximum number of bytes
+    // _capacity = _output.size() + unassembled size 
+    size_t next_index = 0;
+    size_t unassembled_count = 0;
+    bool _eof = false;
+
+    void merge_block(const block &amp;b);
+    ......
+</code></pre><p>push_substring的处理流程：首先判断待插入的子串是否已经写入过ByteStream或是超出capacity的限制，如果存在与ByteStream重叠或超出限制的部分，则对子串进行截取。如果子串刚好可以写入ByteStream，则调用write方法，并递归检查unassembled_bytes中是否有可以加入到ByteStream中的block。如果子串与ByteStream不连续，则将子串与unassembled_bytes中的block进行合并，等待后续的插入。如果eof为true，并且参数中的data没有超出容量限制，表示已经读取到了文件末尾，将_eof标志设置为true。如果_eof为true并且不存在乱序的子串，则调用end_input()方法表示输入结束。如果eof为true但data超出容量限制从而丢弃了data中靠后的部分，此时EOF并未加入到unassembled_bytes或ByteStream中，_eof保持不变以等待重传。push_substring代码如下：</p><pre><code class="language-C++">void StreamReassembler::push_substring(const string &amp;data, const size_t index, const bool eof) {
+    size_t right = index + data.size();
+    size_t bound = next_index + _capacity - _output.buffer_size();
+    if (right &lt;= next_index) {
+        if (eof) _eof = true;
+        if (_eof &amp;&amp; empty()) _output.end_input();
+        return;
+    }
+    if (index &gt;= bound) return;
+    bool end = eof;
+    std::string substring = std::move(data);
+    if (right &gt; bound) {
+        substring = substring.substr(0, substring.size() - (right - bound));
+        end = false;
+    }
+    if (index &lt;= next_index) {
+        substring = substring.substr(next_index - index, substring.size() - (next_index - index));
+        next_index += substring.size();
+        _output.write(substring);
+        if (end) _eof = true;
+        
+        while (!unorder_bytes.empty()) {
+            auto iter = unorder_bytes.begin();
+            if ((*iter).index &lt;= next_index) {
+                auto str = (*iter).data;
+                bool flag = (*iter).eof;
+                size_t idx = (*iter).index;
+                unorder_bytes.erase(*iter);
+                unassembled_count -= str.size();
+                push_substring(str, idx, flag);
+                continue;
+            }
+            break;
+        }
+    } else {
+        merge_block(block(substring, end, index));
+    }
+    if (_eof &amp;&amp; empty()) _output.end_input();
+}
+
+void StreamReassembler::merge_block(const block &amp;b) {
+    for (auto iter = unorder_bytes.begin(); iter != unorder_bytes.end(); iter++) {
+        if (b.index + b.data.size() &lt; (*iter).index) {
+            unorder_bytes.insert(b);
+            unassembled_count += b.data.size();
+            return;
+        } else if (b.index &lt; (*iter).index &amp;&amp; b.index + b.data.size() &gt;= (*iter).index 
+                        &amp;&amp; b.index + b.data.size() &lt; (*iter).index + (*iter).data.size()) {
+            size_t index = b.index;
+            std::string str = b.data.substr(0, (*iter).index - b.index) + (*iter).data;
+            bool eof = (*iter).eof || b.eof;
+            unassembled_count -= (*iter).data.size();
+            unassembled_count += str.size();
+            unorder_bytes.erase(*iter);
+            unorder_bytes.insert(block(str, eof, index));
+            return;
+        } else if (b.index &gt;= (*iter).index &amp;&amp; b.index + b.data.size() &lt;= (*iter).index + (*iter).data.size()) {
+            return;
+        } else if (b.index &lt;= (*iter).index &amp;&amp; b.index + b.data.size() &gt;= (*iter).index + (*iter).data.size()) {
+            unassembled_count -= (*iter).data.size();
+            unorder_bytes.erase(*iter);
+            merge_block(b);
+            return;
+        } else if (b.index &gt;= (*iter).index &amp;&amp; b.index &lt;= (*iter).index + (*iter).data.size() 
+                        &amp;&amp; b.index + b.data.size() &gt; (*iter).index + (*iter).data.size()) {
+            size_t index = (*iter).index;
+            std::string str = (*iter).data.substr(0, b.index - (*iter).index) + b.data;
+            bool eof = (*iter).eof || b.eof;
+            unassembled_count -= (*iter).data.size();
+            unorder_bytes.erase(*iter);
+            merge_block(block(str, eof, index));
+            return;
+        }
+    }
+    unorder_bytes.insert(b);
+    unassembled_count += b.data.size();
+}
+</code></pre><h2 id="lab-2"><span class="mr-2">Lab 2</span><a href="#lab-2" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><h3 id="实现64bit的下标和32bit序列号之间的转换"><span class="mr-2">实现64bit的下标和32bit序列号之间的转换</span><a href="#实现64bit的下标和32bit序列号之间的转换" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p><a href="C:\Users\15991\AppData\Roaming\Typora\typora-user-images\image-20230211134530671.png" class="popup img-link "><img data-src="C:\Users5991\AppData\Roaming\Typora\typora-user-images\image-20230211134530671.png" alt="image-20230211134530671" class="lazyload" data-proofer-ignore></a></p><p>主要是实现两个方法：</p><pre><code class="language-C++">//! Transform a 64-bit absolute sequence number (zero-indexed) into a 32-bit relative sequence number
+WrappingInt32 wrap(uint64_t n, WrappingInt32 isn);
+
+//! Transform a 32-bit relative sequence number into a 64-bit absolute sequence number (zero-indexed)
+uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint);
+</code></pre><p>从64位转换为32位比较简单，直接截取低32位即可。从32位转换为64位比较复杂，因为一个32位的序列号可能会对应无数个64位的下标，因此需要使用checkpoint作为锚定点，选择与数轴上checkpoint距离最近的作为下标。参数中的isn是产生的初始序列号，n是需要转换到64位的序列号。其中</p><p>$ n = (isn + index) \&amp; 0xFFFFFFFF $</p><p>显然，index的低32位与 $n - isn + (1ll « 32)$的低32位相同。</p><p>设$ tmp = n - isn + (1ll « 32) \&amp;0xFFFFFFFF $。那么问题就转变成了，寻找与checkpoint在数轴上距离最近的index，使得$ (index - tmp) \% (1ll « 32) = 0$。</p><p>令$tmp = tmp + 1ll«32, if tmp &lt; checkpoint $,</p><p>则$index = min(tmp, tmp - 1ll « 32)$.</p><p>wrap和unwrap代码如下：</p><pre><code class="language-C++">//! Transform an "absolute" 64-bit sequence number (zero-indexed) into a WrappingInt32
+//! \param n The input absolute 64-bit sequence number
+//! \param isn The initial sequence number
+WrappingInt32 wrap(uint64_t n, WrappingInt32 isn) {
+    return WrappingInt32(n + isn.raw_value());
+}
+
+//! Transform a WrappingInt32 into an "absolute" 64-bit sequence number (zero-indexed)
+//! \param n The relative sequence number
+//! \param isn The initial sequence number
+//! \param checkpoint A recent absolute 64-bit sequence number
+//! \returns the 64-bit sequence number that wraps to `n` and is closest to `checkpoint`
+//!
+//! \note Each of the two streams of the TCP connection has its own ISN. One stream
+//! runs from the local TCPSender to the remote TCPReceiver and has one ISN,
+//! and the other stream runs from the remote TCPSender to the local TCPReceiver and
+//! has a different ISN.
+uint64_t unwrap(WrappingInt32 n, WrappingInt32 isn, uint64_t checkpoint) {
+    uint64_t tmp = 0;
+    uint64_t tmp1 = 0;
+    if (n - isn &lt; 0) {
+        tmp = uint64_t(n - isn + (1l &lt;&lt; 32));
+    } else {
+        tmp = uint64_t(n - isn);
+    }
+    if (tmp &gt;= checkpoint)
+        return tmp;
+    tmp |= ((checkpoint &gt;&gt; 32) &lt;&lt; 32);
+    while (tmp &lt;= checkpoint)
+        tmp += (1ll &lt;&lt; 32);
+    tmp1 = tmp - (1ll &lt;&lt; 32);
+    return (checkpoint - tmp1 &lt; tmp - checkpoint) ? tmp1 : tmp;
+}
+</code></pre><h3 id="实现tcp-receiver"><span class="mr-2">实现TCP receiver</span><a href="#实现tcp-receiver" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>receiver的功能主要有三个部分：1）接收对端发送的segment；2）使用StreamResassembler重排成ByteStream；3）计算ackno和窗口大小。</p><p>TCPReceiver类定义如下：</p><pre><code class="language-C++">class TCPReceiver {
+    //! Our data structure for re-assembling bytes.
+    StreamReassembler _reassembler;
+
+    //! The maximum number of bytes we'll store.
+    size_t _capacity = 0;
+    WrappingInt32 isn = WrappingInt32(0);
+    // _ackno = absolute sequence number + 1
+    // ackno = wrap(_ackno + isn)
+    uint64_t _ackno = 0;
+    bool _syn = false;
+    bool _fin = false;
+	...
+}
+</code></pre><p>receiver每次接收到新的segment时，调用segment_received方法，如果此时:</p><ol><li>连接尚未建立<ol><li>如果SYN置位，表明收到了第一次握手，初始化ISN和_ackno<li>否则，表明收到了过期的segment，直接丢弃</ol><li>连接已经建立<ol><li>如果syn置位，表明收到了冗余的握手报文，直接丢弃<li>如果fin置位，表明收到了第一次挥手，发送方不再发送报文。如果此前收到的报文均已按序排列，则调用end_input()表示设置EOF<li>否则，将payload交给StreamReassembler</ol></ol><p>_ackno是如何变化的？</p><ol><li>连接建立时，SYN报文会占用1个seqno，因此_ackno应该初始化为1<li>连接建立后，如果报文中携带的payload可以加入到ByteStream，则_ackno = _ackno + payload.size + unassembled_bytes中加入ByteSteam的size<li>收到fin报文时，如果前面还有未排好序的报文，则_ackno保持不变。否则，由于fin报文本身占用一个seqno，因此_ackno + 1</ol><p>对应的代码实现如下：</p><pre><code class="language-C++">void TCPReceiver::segment_received(const TCPSegment &amp;seg) {
+    if (seg.header().syn) {
+        if (_syn) return;
+        _syn = true;
+        isn = seg.header().seqno;
+        _ackno = 1;
+    }
+    if (!_syn) return;
+    bool eof = false;
+    if (seg.header().fin) {
+        _fin = true;
+        eof = true;
+    }
+    size_t index = 0;
+    if (!seg.header().syn) {
+        index = unwrap(seg.header().seqno - 1, isn, _reassembler.stream_out().buffer_size());
+    } else {
+        index = unwrap(seg.header().seqno, isn, _reassembler.stream_out().buffer_size());
+    }
+    std::string payload = seg.payload().copy();
+    size_t stream_size = _reassembler.stream_out().buffer_size();
+    _reassembler.push_substring(payload, index, eof);
+    _ackno += _reassembler.stream_out().buffer_size() - stream_size;
+    if (_fin &amp;&amp; _reassembler.unassembled_bytes() == 0) 
+        _ackno++;
+}
+
+optional&lt;WrappingInt32&gt; TCPReceiver::ackno() const { 
+    if (!_syn) {
+        return {};
+    } else {
+        return wrap(_ackno, isn); 
+    }
+}
+
+size_t TCPReceiver::window_size() const { return _capacity - _reassembler.stream_out().buffer_size(); }
+</code></pre><h2 id="lab-3"><span class="mr-2">Lab 3</span><a href="#lab-3" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Lab 3的任务是实现TCPSender，按照一定的顺序从ByteStream中读取字节组成TCP segment，并发送到TCPReceiver，根据TCPReceiver响应报文维护发送窗口，保存已发送未确认的TCPsegment并在超时未收到确认时重新发送。</p><h3 id="如何判断某个segment是否超时"><span class="mr-2">如何判断某个segment是否超时</span><a href="#如何判断某个segment是否超时" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>TCP周期性调用TCPSender::tick()方法，表示距离上次调用经过的时间。当TCPSender初始化时，指定重发时间RTO的初始值，当某个TCPSegment经过RTO仍未收到来自receiver的确认时，重发第一个未确认的TCPSegment。</p><p>要求实现一个timer，用作定时器，由TCPSender::tick调用。定时器需要实现如下功能：</p><ol><li>当发送一个长度非0的segment时，如果timer此时不在运行，则使用当前的RTO初始化开始计时。<li>当调用tick，并且timer超时时：<ol><li>重发最早的未被确认的segment。<li>如果发送窗口大小不为0：<ol><li>consecutive_retransmissions+1，表示连续出现的重发次数，当重发次数过多时，表明网络状况太差，交给后面的TCPConnection中断连接。<li>RTO加倍，即指数退避算法，避免由于连续的重发加大网络负载。</ol><li>使用新的RTO重置定时器，重新开始计时</ol><li>当收到来自接收方的确认时：<ol><li>将RTO设置为初始值<li>如果此时还有未被确认的segment，重置定时器<li>重置consecutive_transmissions为1</ol></ol><p>结合以上规则，设计了如下Timer类：</p><pre><code class="language-C++">class Timer {
+private:
+  size_t _rto = 0;
+  size_t elapsed_time = 0;
+  bool running = false;
+
+public:
+  Timer() {}
+  void enable(size_t rto) { if (!running) { running = true; _rto = rto; } }
+  void disable() { running = false; elapsed_time = 0; }
+
+  void tick(const size_t ms_since_last_tick) { elapsed_time += ms_since_last_tick; }
+
+  bool is_timeout() { return elapsed_time &gt;= _rto; }
+    
+  void reset(size_t new_rto = 0) { running = true; _rto = new_rto; elapsed_time = 0; }
+};
+</code></pre><p>对应的TCPSender::tick的实现：</p><pre><code class="language-C++">//! \param[in] ms_since_last_tick the number of milliseconds since the last call to this method
+void TCPSender::tick(const size_t ms_since_last_tick) { 
+    if (_segments_unacknowledged.empty()) 
+        return;
+    _timer.tick(ms_since_last_tick);
+    if (_timer.is_timeout()) {
+       _segments_out.push(_segments_unacknowledged.front());
+        if (_window_size &gt; 0) {
+            _retransmission_timeout *= 2;
+            _consecutive_retransmissions++;
+        }
+        _timer.reset(_retransmission_timeout);
+    }
+ }
+</code></pre><p>要注意的一点是，在TCPSender类中，构造函数参数<code class="language-plaintext highlighter-rouge">retx_timeout</code>类型为uint16_t，而如果Timer中的<code class="language-plaintext highlighter-rouge">_rto</code>和<code class="language-plaintext highlighter-rouge">elapsed_time</code>也被设计为uint16_t，随着超时次数增大，RTO不断加倍，会引起溢出问题，从而导致在本没有超时的情况下超时，因此将类型统一设置为size_t来规避溢出。</p><h3 id="tcpsender实现"><span class="mr-2">TCPSender实现</span><a href="#tcpsender实现" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>在需要发送segment时，会调用<code class="language-plaintext highlighter-rouge">fill_window</code>方法，该方法从ByteStream中尽可能多地读取字节作为segment的载荷。难点在于如何处理发送窗口与序列号的关系。</p><p>首先，发送窗口大小由接受方指定，为已发送未确认的字节数与剩余可发送的字节数之和。而这个窗口的大小不仅仅针对载荷，SYN和FIN两个报文也各占1字节空间，因此在构建报文时需要考虑SYN和FIN两个标志位。具体地说，应该按照SYN-&gt;payload-&gt;FIN的顺序，依次判断当前发送窗口中是否还有空余位置。</p><p>其次，当window_size为0时，文档中说”fill window method should act like the window size is one”.原因是在receiver对上一次报文的响应中通知sender接收窗口为0，此时如果sender不再向receiver发送报文，则即使receiver更新了自己的接收窗口，但由于不再接收到新的报文，也不会再向sender发送响应通知这一更新，从而导致二者相互等待的现象出现。但是，如果此时仍有已发送而未确认的报文存在，则无需再次发送。</p><p>再次，FIN报文的处理。只有当第一次读到stream尾部时，才应当将报文的FIN标志位置为true。如果后续调用fill_window，由于此时ByteStream已经读到了EOF，而此前已经发送过FIN报文，无论是否超时，都不应该由fill_window方法再次发送一次FIN报文。因此需要跟踪FIN报文的状态来避免再次发送。</p><p>最后，fill_window方法应当何时结束？TCP要求在发送窗口允许的情况下尽可能多地发送报文，而由于网络的限制，payload不能无限制的增长，因此对于超长的报文，需要分段来多次完成发送。当length_in_sequence_space为0时，表明当前的报文发送完毕，方法返回。</p><p>为了代码简洁，从fill_window中拆出了send_segment方法，代码如下：</p><pre><code class="language-C++">bool TCPSender::send_segment(TCPSegment &amp;segment, const size_t length) {
+    if (_next_seqno == 0) 
+        segment.header().syn = true;
+    segment.header().seqno = wrap(_next_seqno, _isn);
+    if (length &lt; size_t(segment.header().syn))
+        return false;
+    // MAX_PAYLOAD_SIZE limits payload only.
+    std::string payload = _stream.read(min(TCPConfig::MAX_PAYLOAD_SIZE, length - segment.header().syn));
+    segment.payload() = Buffer(std::move(payload));
+    if (!_fin &amp;&amp; _stream.eof() &amp;&amp; length &gt; segment.length_in_sequence_space()) {
+        _fin = true;
+        segment.header().fin = true;
+    }
+    if (segment.length_in_sequence_space() == 0)
+        return false;
+    else {
+        _next_seqno += segment.length_in_sequence_space();
+        _bytes_in_flight += segment.length_in_sequence_space();
+        _segments_out.push(segment);
+        _segments_unacknowledged.push(segment);
+        return !_stream.eof();
+    }
+}
+
+// 长度非0的segment发送后，如果timer未启动，启动timer
+void TCPSender::fill_window() {
+    size_t fill_window = 0;
+    // if receiver announce a window size of zero, fill_window method should act like the window_size is one
+    if (_window_size == 0) {
+        if (_bytes_in_flight == 0) {
+            TCPSegment segment;
+            send_segment(segment, 1);
+        } else 
+            return;
+    } else {
+        while (true) {
+            TCPSegment segment;
+            if (_window_size &gt; _bytes_in_flight) 
+                fill_window = _window_size - _bytes_in_flight;
+            else 
+                fill_window = 0;
+            if (!send_segment(segment, fill_window))
+                break;
+        }
+    }
+    if (!_segments_unacknowledged.empty()) 
+        _timer.enable(_retransmission_timeout);
+}
+</code></pre><p>在接收到来自receiver的响应时，调用ack_received方法。TCP采用累计确认，即序列号范围在ackno之前的报文均得到确认。但是，由于网络拥塞等状况的出现，可能会收到若干乱序的确认报文。如果收到的确认号之前已经被确认过，或者确认号大于连接发送过的最大的序列号，该确认报文就应该被丢弃以避免干扰连接。对应的代码如下:</p><pre><code class="language-C++">//! \param ackno The remote receiver's ackno (acknowledgment number)
+//! \param window_size The remote receiver's advertised window size
+void TCPSender::ack_received(const WrappingInt32 ackno, const uint16_t window_size) { 
+    uint64_t _ackno = unwrap(ackno, _isn, _next_seqno);
+    _window_size = window_size;
+    if (_ackno &gt; _next_seqno || _ackno &lt;= _next_seqno - _bytes_in_flight) 
+        return;
+    bool reset = false;
+    // look through its collection of outstanding segments and remove any that have now been fully acknowledged
+    while (!_segments_unacknowledged.empty()) {
+        TCPSegment segment = _segments_unacknowledged.front();
+        if (unwrap(segment.header().seqno, _isn, _next_seqno) + segment.length_in_sequence_space() &lt;= _ackno) {
+            _bytes_in_flight -= segment.length_in_sequence_space();
+            _segments_unacknowledged.pop();
+            reset = true;
+        } else 
+            break;
+    }
+    if (reset) {
+        _retransmission_timeout = _initial_retransmission_timeout;
+        _consecutive_retransmissions = 0;
+        if (!_segments_unacknowledged.empty()) 
+            _timer.reset(_retransmission_timeout);
+        else 
+            _timer.disable();
+    }
+ }
+</code></pre><p>TCPSender类中数据成员定义如下：</p><pre><code class="language-C++">class TCPSender {
+  private:
+    //! our initial sequence number, the number for our SYN.
+    WrappingInt32 _isn;
+
+    //! outbound queue of segments that the TCPSender wants sent
+    std::queue&lt;TCPSegment&gt; _segments_out{};
+    std::queue&lt;TCPSegment&gt; _segments_unacknowledged{};
+
+    //! retransmission timer for the connection
+    size_t _initial_retransmission_timeout;
+    size_t _retransmission_timeout;
+
+    //! outgoing stream of bytes that have not yet been sent
+    ByteStream _stream;
+
+    //! the (absolute) sequence number for the next byte to be sent
+    uint64_t _next_seqno{0};
+
+    Timer _timer{};
+
+    size_t _window_size = 1;
+    size_t _bytes_in_flight = 0;
+    int _consecutive_retransmissions = 0;
+    bool _fin = false;
+    ...
+</code></pre><h2 id="lab-4"><span class="mr-2">Lab 4</span><a href="#lab-4" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Lab4要求实现一个TCPConnection类，主要功能是封装TCPSender和TCPReceiver，构建TCP的有限状态机。这个实验相比于前面几个实验多了很多的细节逻辑，并且很多地方需要修改前面的代码，因此难度相比于前几个大幅提升。</p><p>TCPConnection各种状态迁移主要是按照如下三幅图来做：</p><p><a href="https://img-blog.csdnimg.cn/img_convert/b81aca7bc9cdfbdc3c26f96797bb1803.png" class="popup img-link "><img data-src="https://img-blog.csdnimg.cn/img_convert/b81aca7bc9cdfbdc3c26f96797bb1803.png" alt="img" class="lazyload" data-proofer-ignore></a></p><p><a href="https://img-blog.csdnimg.cn/img_convert/700d06c6bc84e81fea2d4ccaf567e8dd.png" class="popup img-link "><img data-src="https://img-blog.csdnimg.cn/img_convert/700d06c6bc84e81fea2d4ccaf567e8dd.png" alt="img" class="lazyload" data-proofer-ignore></a></p><p><a href="https://img-blog.csdnimg.cn/img_convert/5938cb98d701afbc7b5f56bc440ef889.png" class="popup img-link "><img data-src="https://img-blog.csdnimg.cn/img_convert/5938cb98d701afbc7b5f56bc440ef889.png" alt="img" class="lazyload" data-proofer-ignore></a></p><p>在顺利完成了上面几幅图中的状态转换之后，至少可以完成前面的55个测试。由于我没有完美通关本实验，因此不再贴出代码。</p><h2 id="后记"><span class="mr-2">后记</span><a href="#后记" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2><p>Lab5和Lab6分别是关于链路层协议和路由转发的，对此兴趣不大，因此不再尝试，对计算机网络的学习就此告一段落。下一门打算在CMU 15-445/15-411两门课程中选择。</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/'>计算机网络</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" class="post-tag no-text-decoration" >计算机网络</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=CS144%20Lab%20Assignments%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20clingfei&url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FCS144-notes%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=CS144%20Lab%20Assignments%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20clingfei&u=https%3A%2F%2Fclingfei.github.io%2F_posts%2FCS144-notes%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FCS144-notes%2F&text=CS144%20Lab%20Assignments%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%20-%20clingfei" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/_posts/11.-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">LeetCode 11. 盛最多水的容器</a><li><a href="/_posts/C++-tricks/">C++ tricks</a><li><a href="/_posts/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E5%80%BC%E4%BD%9C%E4%B8%BA%E5%AE%9E%E5%8F%82%E6%97%B6,%E8%A2%AB%E5%AD%98%E6%94%BE%E5%9C%A8%E5%93%AA%E4%BA%86/">字符串字面值作为实参时，被放在哪了？</a><li><a href="/_posts/LeetCode-761%E9%A2%98%E8%A7%A3/">LeetCode 761 特殊的二进制序列</a><li><a href="/_posts/seimi/">SEIMI</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/_posts/%E4%B8%B2%E5%8F%A3%E8%B0%83%E8%AF%95/"><div class="card-body"> <em class="small" data-ts="1711843200" data-df="ll" > Mar 31, 2024 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>使用串口调试Linux内核</h3><div class="text-muted small"><p> 前置要求及环境配置 被调试的主机安装待调试内核，称为target，另一台装有稳定的Linux内核，称为host。 target主板上带有原生com口，不能使用USB转接；需要一台USB转串口母线，连接target串口和host 本文使用的target架构为aarch64, 系统为openeuler，内核为Linux-5.10, host架构为x86-64, 系统为ubuntu 20.0...</p></div></div></a></div><div class="card"> <a href="/_posts/%E4%BD%BF%E7%94%A8qemu%E8%BF%9B%E8%A1%8CLinux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/"><div class="card-body"> <em class="small" data-ts="1694390400" data-df="ll" > Sep 11, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>使用qemu进行Linux内核调试</h3><div class="text-muted small"><p> 一篇创建于2023.9.11，完成于2024.3.31，拖了大半年的文章 调试前的准备 编译qemu 在ubuntu中可以通过apt安装qemu-system，也可以从源码自行编译。在编译qemu-8.0时，可能遇到kvm Parameter &#39;type&#39; expects a netdev backend type，原因是因为在编译时没有enable-slirp，而enab...</p></div></div></a></div><div class="card"> <a href="/_posts/Linux-TTBR1/"><div class="card-body"> <em class="small" data-ts="1691971200" data-df="ll" > Aug 14, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>Linux下的TTBR1_EL1寄存器使用探究</h3><div class="text-muted small"><p> 本文分析基于Linux-5.10.100，架构基于ARM64 V8.3，假设页表映射层级为4，即CONFIG_ARM64_PGTABLE_LEVELS=4，地址宽度为48，即CONFIG_ARM64_VA_BITS=48。 在Linux系统中，通过MMU进行虚实地址转换时，会依赖于TTBR1_EL1和TTBR0_EL0两个寄存器。其中TTBR1_EL1指向内核地址空间的页表基地...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/_posts/raft/" class="btn btn-outline-primary" prompt="Older"><p>6.824 Lab2 Raft Implementation</p></a> <a href="/_posts/Linux-%E5%86%85%E6%A0%B8%E4%B8%8E%E6%A8%A1%E5%9D%97%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/" class="btn btn-outline-primary" prompt="Newer"><p>Linux内核与模块数据交互方式总结</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2024 <a href="https://github.com/clingfei">clingfei</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/unregister.js"></script>

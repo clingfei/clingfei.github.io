@@ -1,0 +1,390 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.3" /><meta property="og:title" content="MIT 6.s081 Lab page tables" /><meta property="og:locale" content="en" /><meta name="description" content="clingfei’s blog" /><meta property="og:description" content="clingfei’s blog" /><link rel="canonical" href="https://clingfei.github.io/_posts/MIT-6.s081-Lab-pagetable/" /><meta property="og:url" content="https://clingfei.github.io/_posts/MIT-6.s081-Lab-pagetable/" /><meta property="og:site_name" content="clingfei" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-03-21T00:00:00+00:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="MIT 6.s081 Lab page tables" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-03-21T00:00:00+00:00","datePublished":"2023-03-21T00:00:00+00:00","description":"clingfei’s blog","headline":"MIT 6.s081 Lab page tables","mainEntityOfPage":{"@type":"WebPage","@id":"https://clingfei.github.io/_posts/MIT-6.s081-Lab-pagetable/"},"url":"https://clingfei.github.io/_posts/MIT-6.s081-Lab-pagetable/"}</script><title>MIT 6.s081 Lab page tables | clingfei</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="clingfei"><meta name="application-name" content="clingfei"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener('change', () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.notify(); } /* flipMode() */ } /* ModeToggle */ const modeToggle = new ModeToggle(); </script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/favicons/head.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/">clingfei</a></div><div class="site-subtitle font-italic">行则将至</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/clingfei" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="https://www.zhihu.com/people/qffds" aria-label="zhihu" target="_blank" rel="noopener noreferrer"> <i class="fab fa-zhihu"></i> </a> <a href="javascript:location.href = 'mailto:' + ['clf700383','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>MIT 6.s081 Lab page tables</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>MIT 6.s081 Lab page tables</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1679356800" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Mar 21, 2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/clingfei">clingfei</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2937 words"> <em>16 min</em> read</span></div></div></div><div class="post-content"><hr /><blockquote><p><a href="https://pdos.csail.mit.edu/6.828/2020/labs/pgtbl.html">Lab: page tables (mit.edu)</a></p></blockquote><h3 id="print-a-page-table"><span class="mr-2">Print a page table</span><a href="#print-a-page-table" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>实现vmprint函数，接收一个pagetable_t类型的参数，然后按照规定格式输出pte和pa，功能是输出给定进程的页表，例如：</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre><td class="rouge-code"><pre>page table 0x0000000087f6e000
+..0: pte 0x0000000021fda801 pa 0x0000000087f6a000
+.. ..0: pte 0x0000000021fda401 pa 0x0000000087f69000
+.. .. ..0: pte 0x0000000021fdac1f pa 0x0000000087f6b000
+.. .. ..1: pte 0x0000000021fda00f pa 0x0000000087f68000
+.. .. ..2: pte 0x0000000021fd9c1f pa 0x0000000087f67000
+..255: pte 0x0000000021fdb401 pa 0x0000000087f6d000
+.. ..511: pte 0x0000000021fdb001 pa 0x0000000087f6c000
+.. .. ..510: pte 0x0000000021fdd807 pa 0x0000000087f76000
+.. .. ..511: pte 0x0000000020001c0b pa 0x0000000080007000
+</pre></table></code></div></div><p>risc-v采用三级页表，因此当页表深度&gt;3时直接返回。每个页表占1页，每页4096字节，每个pte64位，共8字节，因此每个页中有512个pte。对于每个pagetable，遍历512个pte，如果该pte的PTE_V位为1，说明有效，可以通过PTE2PA获得该pte所对应的物理地址，输出pte和pa，并将pa作为下一级页表地址，继续输出，完整代码如下：</p><pre><code class="language-C">void 
+vmprint_r(pagetable_t pagetable, int curdepth) {
+  if (curdepth &gt; 3) 
+    return;
+  for (int i = 0; i &lt; 512; i++) {
+    pte_t pte = pagetable[i];
+    if(pte &amp; PTE_V) {
+      printf("..");
+      for (int j = 1; j &lt; curdepth; j++) {
+        printf(" ..");
+      }
+      uint64 pa = PTE2PA(pte);
+      printf("%d: pte %p pa %p\n", i, pte, pa);
+      vmprint_r((pagetable_t)pa, curdepth + 1);
+    }
+  }
+}
+
+void
+vmprint(pagetable_t pagetable) {
+  printf("page table %p\n", pagetable);
+  vmprint_r(pagetable, 1);
+}
+</code></pre><h3 id="a-kernel-page-table-per-process"><span class="mr-2">A kernel page table per process</span><a href="#a-kernel-page-table-per-process" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>xv6在内核态执行时，不同进程共用一个内核页表，采用直接映射方式，即内核态下虚拟地址x直接映射到物理地址x，而在用户态执行时，不同进程各自有一个用户地址空间，从虚拟地址0开始映射到物理地址。</p><p>在内核态下采用直接映射的好处是可以简化内核对物理地址读写的操作。例如，在fork时，需要为子进程分配用户内存，分配器返回物理地址，然后fork在将父进程的用户内存拷贝到子进程的用户内存时，不需要再进行一次内存映射，而是直接将分配器返回的物理地址当作虚拟地址来使用。</p><p>内核页表中不存在到用户内存的映射，因此用户地址空间的地址在内核态下是无效的，因此当内核需要使用在系统调用中传递的用户空间的指针时，首先需要将该指针转换为物理地址。这部分的目的就是为了解决这个问题，在内核页表中添加到用户空间的映射，从而能够直接根据内核页表对用户地址进行解引用而不需要进行额外的地址翻译操作。</p><p>首先需要为每个进程添加一个内核页表，从而使每个进程在内核态下执行时具有单独的地址空间。在struct proc中添加一个字段：</p><pre><code class="language-C">struct proc {
+  ...
+  uint64 sz;                   // Size of process memory (bytes)
+  pagetable_t pagetable;       // User page table
+  pagetable_t kernel_pagetable;      // Kernel page table
+  struct trapframe *trapframe; // data page for trampoline.S
+  ...
+};
+</code></pre><p>在allocproc中创建进程时，需要对内核页表进行初始化，分别仿照kvminit和procinit设置内核页表和内核栈：</p><pre><code class="language-C">static struct proc*
+allocproc(void)
+{
+	......
+
+found:
+  p-&gt;kernel_pagetable = kernelvminit();
+  if (p-&gt;kernel_pagetable == 0) {
+    freeproc(p);
+    release(&amp;p-&gt;lock);
+    return 0;
+  }
+  if (mappages(p-&gt;kernel_pagetable, TRAPFRAME, PGSIZE,
+              (uint64)(p-&gt;trapframe), PTE_R | PTE_W) != 0)
+    panic("map frame");
+
+  // An empty user page table.
+  p-&gt;pagetable = proc_pagetable(p);
+  if(p-&gt;pagetable == 0){
+    freeproc(p);
+    release(&amp;p-&gt;lock);
+    return 0;
+  }
+
+  char *pa = kalloc();
+  if (pa == 0) 
+    panic("alloc KSTACK");
+  memset(pa, 0, PGSIZE);
+  uint64 va = KSTACK((int) 0);
+  if (mappages(p-&gt;kernel_pagetable, va, PGSIZE, (uint64)pa, PTE_R | PTE_W) != 0) 
+    panic("map kstack");
+  p-&gt;kstack = va;
+
+	......
+
+  return p;
+}
+</code></pre><p>kernelvminit和kvminit的区别在于，kvminit用于初始化整个内核的内核页表，kernelvminit用于初始化各个进程的内核页表。在为每个进程添加了内核页表之后，全局的kernel_pagetable仅在CPU空转时由0号进程使用，而其他进程占用CPU时使用自己的内核页表，对应地，由于CLINT仅在内核启动时使用，因此在初始化每个进程的内核页表时不需要映射这部分：</p><pre><code class="language-C">void 
+pagemap(pagetable_t pagetable, uint64 va, uint64 pa, uint64 sz, int perm) 
+{
+  if(mappages(pagetable, va, sz, pa, perm) != 0)
+    panic("pagemap");
+}
+// implement a modified version of kvminit that makes a new page table 
+// instead of modifying kernel_pagetable
+pagetable_t 
+kernelvminit() {
+  pagetable_t pagetable = (pagetable_t) kalloc();
+  memset(pagetable, 0, PGSIZE);
+  // 应该map到新创建的pagetabe，而不是映射到原本的页表
+
+  // uart registers
+  pagemap(pagetable, UART0, UART0, PGSIZE, PTE_R | PTE_W);
+
+  // virtio mmio disk interface
+  pagemap(pagetable, VIRTIO0, VIRTIO0, PGSIZE, PTE_R | PTE_W);
+
+  // CLINT
+  // pagemap(pagetable, CLINT, CLINT, 0x10000, PTE_R | PTE_W);
+
+  // PLIC
+  pagemap(pagetable, PLIC, PLIC, 0x400000, PTE_R | PTE_W);
+
+  // map kernel text executable and read-only.
+  pagemap(pagetable, KERNBASE, KERNBASE, (uint64)etext-KERNBASE, PTE_R | PTE_X);
+
+  // map kernel data and the physical RAM we'll make use of.
+  pagemap(pagetable, (uint64)etext, (uint64)etext, PHYSTOP-(uint64)etext, PTE_R | PTE_W);
+
+  // map the trampoline for trap entry/exit to
+  // the highest virtual address in the kernel.
+  pagemap(pagetable, TRAMPOLINE, (uint64)trampoline, PGSIZE, PTE_R | PTE_X);
+  
+  return pagetable;
+}
+</code></pre><p>在scheduler中，切换进程时，需要将改进程的内核页表切换到satp寄存器中并刷新页表缓存，如果没找到合适的进程切换，应当使用全局内核页表代替。在这里有个我想了很久才想明白的问题，为什么在swtch之后调用kvminithart()而不是在没找到可运行进程时再调用，我认为原因是在swtch时，已经从scheduler切换到了选定的进程执行，而swtch返回是因为进程执行结束或者其他情况需要调度器调度，此事应该切换回来，使用init进程本身的内核页表，并且刷新快表缓存：</p><pre><code class="language-C">void
+scheduler(void)
+{
+ 	......
+        // switch h/w page table register to the kernel's page table
+        w_satp(MAKE_SATP(p-&gt;kernel_pagetable));
+        sfence_vma();
+
+        swtch(&amp;c-&gt;context, &amp;p-&gt;context);
+
+        // Process is done running for now.
+        // It should have changed its p-&gt;state before coming back.
+    	kvminithart();
+        c-&gt;proc = 0;
+
+        found = 1;
+      }
+      release(&amp;p-&gt;lock);
+    }
+	......
+}
+</code></pre><p>在释放进程时，需要加入对内核页表和内核栈的处理，只需要释放页表而不需要释放页表映射的最低一级的物理页：</p><pre><code class="language-C">static void
+freeproc(struct proc *p)
+{
+  if(p-&gt;trapframe)
+    kfree((void*)p-&gt;trapframe);
+  p-&gt;trapframe = 0;
+  if(p-&gt;pagetable)
+    proc_freepagetable(p-&gt;pagetable, p-&gt;sz);
+  p-&gt;pagetable = 0;
+
+  void *kstack_pa = (void *)kvmpa(p-&gt;kernel_pagetable, p-&gt;kstack);
+  kfree(kstack_pa);
+  p-&gt;kstack = 0;
+  // free a page table without also freeing the leaf physical memory pages
+  if (p-&gt;kernel_pagetable) 
+    proc_freevmpagetable(p-&gt;kernel_pagetable, p-&gt;sz);
+  p-&gt;kernel_pagetable = 0;
+  p-&gt;sz = 0;
+  p-&gt;pid = 0;
+  p-&gt;parent = 0;
+  p-&gt;name[0] = 0;
+  p-&gt;chan = 0;
+  p-&gt;killed = 0;
+  p-&gt;xstate = 0;
+  p-&gt;state = UNUSED;
+}
+
+void 
+proc_freevmpagetable(pagetable_t pagetable, uint64 sz)
+{
+  for(int i = 0; i &lt; 512; i++){
+    pte_t pte = pagetable[i];
+    uint64 child = PTE2PA(pte);
+    if((pte &amp; PTE_V) &amp;&amp; (pte &amp; (PTE_R|PTE_W|PTE_X)) == 0){ // 如果该页表项指向更低一级的页表
+      // 递归释放低一级页表及其页表项
+      proc_freevmpagetable((pagetable_t)child, sz);
+      pagetable[i] = 0;
+    }
+  }
+  kfree((void*)pagetable);
+}
+</code></pre><p>在进行了上述修改后，运行make qemu，会出现panic：virtio status，究其原因，是因为在virtio_disk_rw中，原本的获得buf0的虚拟地址采用的是kvmpa函数，而kvmpa通过对全局的内核页表进行查询以获得va对应的物理地址，在为每个进程分配一个内核页表后，应该对kvmpa作出修改，以使其查找自己的内核页表以获得物理地址，修改后可成功运行：</p><pre><code class="language-C">void
+virtio_disk_rw(struct buf *b, int write)
+{
+  ......
+  buf0.reserved = 0;
+  buf0.sector = sector;
+  // buf0 is on a kernel stack, which is not direct mapped,
+  // thus the call to kvmpa().
+  pagetable_t pagetbl = myproc()-&gt;kernel_pagetable;
+  disk.desc[idx[0]].addr = (uint64) kvmpa(pagetbl, (uint64) &amp;buf0);
+  disk.desc[idx[0]].len = sizeof(buf0);
+  disk.desc[idx[0]].flags = VRING_DESC_F_NEXT;
+  disk.desc[idx[0]].next = idx[1];
+  ......
+}
+</code></pre><p>对应的kvmpa：</p><pre><code class="language-C">uint64
+kvmpa(pagetable_t pagetable, uint64 va)
+{
+  uint64 off = va % PGSIZE;
+  pte_t *pte;
+  uint64 pa;
+
+  pte = walk(pagetable, va, 0);
+  if(pte == 0)
+    panic("kvmpa");
+  if((*pte &amp; PTE_V) == 0)
+    panic("kvmpa");
+  pa = PTE2PA(*pte);
+  return pa+off;
+}
+</code></pre><h3 id="simplify-copyincopyinstr"><span class="mr-2">Simplify copyin/copyinstr</span><a href="#simplify-copyincopyinstr" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>内核的copyin函数通过遍历进程的用户页表将用户提供的指针翻译成内核可以直接解引用的物理地址，而这部分的任务是在每个进程的内核页表中添加到用户内存的映射，从而能够使内核直接解引用用户提供的虚拟地址而不需要再去遍历用户页表，从而可以利用CPU的硬件寻址功能进行寻址，并且可以使用快表加速。</p><p>这一机制依赖于用户空间的虚拟地址不会与内核的虚拟地址空间发生重叠，在xv6中，内核虚拟地址空间在0xC000000以上，这个值保存在PLIC寄存器中，而用户地址空间从0开始，因此需要限制用户空间的增长不要超过PLIC。</p><p>为了实现以上目的，需要在每处内核对用户页表进行修改时，将同样的修改同步到内核页表中，使得两个页表的程序段地址空间的映射同步。</p><p>首先实现将用户页表的指定地址空间拷贝到内核页表中：</p><pre><code class="language-C">int kvmcopy_pagetbl(pagetable_t src, pagetable_t dst, uint64 start, uint64 sz) {
+	pte_t *pte;
+	uint64 pa, i;
+	uint64 flags;
+	
+	for (i = PGROUNDUP(start); i &lt; start + sz; i += PGSIZE){
+		if ((pte = walk(src, i, 0)) == 0)
+			panic("kvmcopy_pagetbl: walk");
+		if ((*pte &amp; PTE_V) == 0)
+            panic("kvmcopy_pagetbl: invalid page");
+        pa = PTE2PA(*pte);
+        
+        flags = PTE_FLAGS(*pte) &amp; ~PTE_U;
+        if (mappages(dst, i, PGSIZE, pa, flags) != 0) {
+            goto err;
+        }
+	}
+    return 0;
+err:
+    uvmunmap(dst, PGROUNDUP(start), (i - PGROUNDUP(start)) / PGSIZE, 0);
+    return -1;
+}
+</code></pre><p>对应地，添加解除映射的函数：</p><pre><code class="language-C">uint64 kvmdealloc(pagetable_t pagetable, uint64 oldsz, uint64 newsz) {
+	if (newsz &gt;= oldsz)
+		return oldsz;
+	
+	if (PGROUNDUP(newsz) &lt; PGROUNDUP(oldsz)) {
+		int npages = (PGROUNDUP(oldsz) - PGROUNDUP(newsz)) / PGSIZE;
+		uvmunmap(pagetable, PGROUNDUP(newsz), npages, 0);
+	}
+	
+	return newsz;
+}
+</code></pre><p>在exec中加入代码防止用户内存超出PLIC的限制：</p><pre><code class="language-C">int
+exec(char *path, char **argv)
+{
+	//......
+ for(i=0, off=elf.phoff; i&lt;elf.phnum; i++, off+=sizeof(ph)){
+ 	//.....
+     if((sz1 = uvmalloc(pagetable, sz, ph.vaddr + ph.memsz)) == 0)
+      goto bad;
+    if (sz1 &gt;= PLIC)
+      goto bad;
+    sz = sz1;
+    //......
+  }
+  //......
+}
+</code></pre><p>在fork中将用户内存从父进程拷贝到子进程中之后，将子进程用户页表的起始地址映射到内核页表中：</p><pre><code class="language-C">int fork(void) {
+	// ......
+  if (kvmcopy_pagetbl(np-&gt;pagetable, np-&gt;kernel_pagetable, 0, p-&gt;sz) != 0){
+    freeproc(np);
+    release(&amp;np-&gt;lock);
+    return -1;
+  }
+  // ......
+}
+</code></pre><p>在exec中，由于需要使用新的程序映像替换，因此需要首先清除内核页表中对于旧的用户地址空间的映射，然后加入新的内存映射：</p><pre><code class="language-C">int
+exec(char *path, char **argv)
+{
+ //......
+ // Save program name for debugging.
+  for(last=s=path; *s; s++)
+    if(*s == '/')
+      last = s+1;
+  safestrcpy(p-&gt;name, last, sizeof(p-&gt;name));
+    
+  uvmunmap(p-&gt;kernel_pagetable, 0, PGROUNDUP(oldsz) / PGSIZE, 0);
+  if (kvmcopy_pagetbl(pagetable, p-&gt;kernel_pagetable, 0, sz) != 0)
+    goto bad;
+  // Commit to the user image.
+  oldpagetable = p-&gt;pagetable;
+  p-&gt;pagetable = pagetable;
+  p-&gt;sz = sz;
+  p-&gt;trapframe-&gt;epc = elf.entry;  // initial program counter = main
+  p-&gt;trapframe-&gt;sp = sp; // initial stack pointer
+  proc_freepagetable(oldpagetable, oldsz);
+
+  //......
+}
+</code></pre><p>growproc中，首先需要加入对于映射的用户空间大小的限制，然后在proc的用户空间增长和缩小时同步缩小对应的映射：</p><pre><code class="language-C">int growproc(int n)
+{
+  uint sz;
+  struct proc *p = myproc();
+
+  sz = p-&gt;sz;
+  if(n &gt; 0){
+    uint64 newsz;
+    if((newsz = uvmalloc(p-&gt;pagetable, sz, sz + n)) == 0) {
+      return -1;
+    }
+    // 内核页表中的映射同步扩大
+    if(kvmcopy_pagetbl(p-&gt;pagetable, p-&gt;kernel_pagetable, sz, n) != 0) {
+      uvmdealloc(p-&gt;pagetable, newsz, sz);
+      return -1;
+    }
+    sz = newsz;
+  } else if(n &lt; 0){
+    uvmdealloc(p-&gt;pagetable, sz, sz + n);
+    // 内核页表中的映射同步缩小
+    sz = kvmdealloc(p-&gt;kernel_pagetable, sz, sz + n);
+  }
+  p-&gt;sz = sz;
+  return 0;
+}
+</code></pre><p>对于init进程，由于不是由fork创建的，因此在userinit中同样需要加入映射代码：</p><div class="language-c highlighter-rouge"><div class="code-header"> <span data-label-text="C"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre><td class="rouge-code"><pre><span class="kt">void</span>
+<span class="nf">userinit</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="c1">// ......</span>
+
+  <span class="c1">// allocate one user page and copy init's instructions</span>
+  <span class="c1">// and data into it.</span>
+  <span class="n">uvminit</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">initcode</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">initcode</span><span class="p">));</span>
+  <span class="n">p</span><span class="o">-&gt;</span><span class="n">sz</span> <span class="o">=</span> <span class="n">PGSIZE</span><span class="p">;</span>
+  <span class="n">kvmcopy_pagetbl</span><span class="p">(</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">pagetable</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">kernel_pagetable</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">sz</span><span class="p">);</span>
+
+  <span class="c1">// ......</span>
+<span class="p">}</span>
+</pre></table></code></div></div><p>将copyin和copyinstr函数注释掉，改为直接调用copyinnew和copyinstr_new两个函数，make qemu运行usertests，成功通过。</p><div class="language-plaintext highlighter-rouge"><div class="code-header"> <span data-label-text="Plaintext"><i class="fas fa-code small"></i></span> <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre><td class="rouge-code"><pre>== Test count copyin == 
+$ make qemu-gdb
+count copyin: OK (1.2s) 
+== Test usertests == 
+$ make qemu-gdb
+(194.3s) 
+== Test   usertests: copyin == 
+  usertests: copyin: OK 
+== Test   usertests: copyinstr1 == 
+  usertests: copyinstr1: OK 
+== Test   usertests: copyinstr2 == 
+  usertests: copyinstr2: OK 
+== Test   usertests: copyinstr3 == 
+  usertests: copyinstr3: OK 
+== Test   usertests: sbrkmuch == 
+  usertests: sbrkmuch: OK 
+== Test   usertests: all tests == 
+  usertests: all tests: OK 
+== Test time == 
+time: OK 
+</pre></table></code></div></div></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/operating-system/'>operating system</a>, <a href='/categories/xv6/'>xv6</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/operating-system/" class="post-tag no-text-decoration" >operating system</a> <a href="/tags/xv6/" class="post-tag no-text-decoration" >xv6</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=MIT%206.s081%20Lab%20page%20tables%20-%20clingfei&url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-pagetable%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=MIT%206.s081%20Lab%20page%20tables%20-%20clingfei&u=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-pagetable%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-pagetable%2F&text=MIT%206.s081%20Lab%20page%20tables%20-%20clingfei" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/_posts/11.-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">LeetCode 11. 盛最多水的容器</a><li><a href="/_posts/C++-tricks/">C++ tricks</a><li><a href="/_posts/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E5%80%BC%E4%BD%9C%E4%B8%BA%E5%AE%9E%E5%8F%82%E6%97%B6,%E8%A2%AB%E5%AD%98%E6%94%BE%E5%9C%A8%E5%93%AA%E4%BA%86/">字符串字面值作为实参时，被放在哪了？</a><li><a href="/_posts/LeetCode-761%E9%A2%98%E8%A7%A3/">LeetCode 761 特殊的二进制序列</a><li><a href="/_posts/seimi/">SEIMI</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/_posts/MIT-6.s081-Lab-lazy-allocation/"><div class="card-body"> <em class="small" data-ts="1680739200" data-df="ll" > Apr 6, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab lazy allocation</h3><div class="text-muted small"><p> Lab: xv6 lazy page allocation (mit.edu) Page-fault exceptions 当CPU无法将虚拟地址转换成物理地址时，生成一个page-fault excecption，称为缺页异常。RISC-V中存在三种类型的缺页异常：load(load指令)/store(store指令)/instruction(指令所在的虚拟地址无法转换成物...</p></div></div></a></div><div class="card"> <a href="/_posts/MIT-6.s081-Lab-cow/"><div class="card-body"> <em class="small" data-ts="1681084800" data-df="ll" > Apr 10, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab copy-on-write fork</h3><div class="text-muted small"><p> Lab: Copy-on-Write Fork for xv6 (mit.edu) Problem and Solution xv6中的fork系统调用将父进程的用户空间内存全部复制到子进程，而如果需要拷贝的内存数量比较大，拷贝过程会引起严重的开销问题。并且在子进程中，fork系统调用后通常紧跟着exec系统调用以修改进程影响，导致fork复制的内存被丢弃。如果父进程和子进程使...</p></div></div></a></div><div class="card"> <a href="/_posts/MIT-6.s081-Lab-multhreading/"><div class="card-body"> <em class="small" data-ts="1681430400" data-df="ll" > Apr 14, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab Multithreading</h3><div class="text-muted small"><p> Lab: Multithreading (mit.edu) Uthread: switching between threads 为用户态的线程系统设计并实现上下文切换机制，实现创建线程、在线程切换时保存和恢复寄存器的功能。 uthread.c中对线程的定义如下： struct thread { char stack[STACK_SIZE]; /* the th...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/_posts/MIT-6.s081-Lab-system-calls/" class="btn btn-outline-primary" prompt="Older"><p>MIT 6.s081 Lab system calls</p></a> <a href="/_posts/how-to-debug-LLVM-Pass/" class="btn btn-outline-primary" prompt="Newer"><p>如何使用gdb调试LLVM Pass？</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2024 <a href="https://github.com/clingfei">clingfei</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/unregister.js"></script>

@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en" ><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="theme-color" media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, user-scalable=no initial-scale=1, shrink-to-fit=no, viewport-fit=cover" ><meta name="generator" content="Jekyll v4.3.3" /><meta property="og:title" content="MIT 6.s081 Lab traps" /><meta property="og:locale" content="en" /><meta name="description" content="clingfei’s blog" /><meta property="og:description" content="clingfei’s blog" /><link rel="canonical" href="https://clingfei.github.io/_posts/MIT-6.s081-Lab-traps/" /><meta property="og:url" content="https://clingfei.github.io/_posts/MIT-6.s081-Lab-traps/" /><meta property="og:site_name" content="clingfei" /><meta property="og:type" content="article" /><meta property="article:published_time" content="2023-04-05T00:00:00+00:00" /><meta name="twitter:card" content="summary" /><meta property="twitter:title" content="MIT 6.s081 Lab traps" /> <script type="application/ld+json"> {"@context":"https://schema.org","@type":"BlogPosting","dateModified":"2023-04-05T00:00:00+00:00","datePublished":"2023-04-05T00:00:00+00:00","description":"clingfei’s blog","headline":"MIT 6.s081 Lab traps","mainEntityOfPage":{"@type":"WebPage","@id":"https://clingfei.github.io/_posts/MIT-6.s081-Lab-traps/"},"url":"https://clingfei.github.io/_posts/MIT-6.s081-Lab-traps/"}</script><title>MIT 6.s081 Lab traps | clingfei</title><link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicons/apple-touch-icon.png"><link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="/assets/img/favicons/favicon-16x16.png"><link rel="manifest" href="/assets/img/favicons/site.webmanifest"><link rel="shortcut icon" href="/assets/img/favicons/favicon.ico"><meta name="apple-mobile-web-app-title" content="clingfei"><meta name="application-name" content="clingfei"><meta name="msapplication-TileColor" content="#da532c"><meta name="msapplication-config" content="/assets/img/favicons/browserconfig.xml"><meta name="theme-color" content="#ffffff"><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="dns-prefetch" href="https://fonts.gstatic.com" crossorigin><link rel="preconnect" href="https://fonts.googleapis.com" ><link rel="dns-prefetch" href="https://fonts.googleapis.com" ><link rel="preconnect" href="https://cdn.jsdelivr.net" ><link rel="dns-prefetch" href="https://cdn.jsdelivr.net" ><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lato&family=Source+Sans+Pro:wght@400;600;700;900&display=swap"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/css/bootstrap.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.11.2/css/all.min.css"><link rel="stylesheet" href="/assets/css/style.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/magnific-popup@1/dist/magnific-popup.min.css"> <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script> <script type="text/javascript"> class ModeToggle { static get MODE_KEY() { return "mode"; } static get MODE_ATTR() { return "data-mode"; } static get DARK_MODE() { return "dark"; } static get LIGHT_MODE() { return "light"; } static get ID() { return "mode-toggle"; } constructor() { if (this.hasMode) { if (this.isDarkMode) { if (!this.isSysDarkPrefer) { this.setDark(); } } else { if (this.isSysDarkPrefer) { this.setLight(); } } } let self = this; /* always follow the system prefers */ this.sysDarkPrefers.addEventListener('change', () => { if (self.hasMode) { if (self.isDarkMode) { if (!self.isSysDarkPrefer) { self.setDark(); } } else { if (self.isSysDarkPrefer) { self.setLight(); } } self.clearMode(); } self.notify(); }); } /* constructor() */ get sysDarkPrefers() { return window.matchMedia("(prefers-color-scheme: dark)"); } get isSysDarkPrefer() { return this.sysDarkPrefers.matches; } get isDarkMode() { return this.mode === ModeToggle.DARK_MODE; } get isLightMode() { return this.mode === ModeToggle.LIGHT_MODE; } get hasMode() { return this.mode != null; } get mode() { return sessionStorage.getItem(ModeToggle.MODE_KEY); } /* get the current mode on screen */ get modeStatus() { if (this.isDarkMode || (!this.hasMode && this.isSysDarkPrefer)) { return ModeToggle.DARK_MODE; } else { return ModeToggle.LIGHT_MODE; } } setDark() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.DARK_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.DARK_MODE); } setLight() { $('html').attr(ModeToggle.MODE_ATTR, ModeToggle.LIGHT_MODE); sessionStorage.setItem(ModeToggle.MODE_KEY, ModeToggle.LIGHT_MODE); } clearMode() { $('html').removeAttr(ModeToggle.MODE_ATTR); sessionStorage.removeItem(ModeToggle.MODE_KEY); } /* Notify another plugins that the theme mode has changed */ notify() { window.postMessage({ direction: ModeToggle.ID, message: this.modeStatus }, "*"); } flipMode() { if (this.hasMode) { if (this.isSysDarkPrefer) { if (this.isLightMode) { this.clearMode(); } else { this.setLight(); } } else { if (this.isDarkMode) { this.clearMode(); } else { this.setDark(); } } } else { if (this.isSysDarkPrefer) { this.setLight(); } else { this.setDark(); } } this.notify(); } /* flipMode() */ } /* ModeToggle */ const modeToggle = new ModeToggle(); </script><body data-topbar-visible="true"><div id="sidebar" class="d-flex flex-column align-items-end"><div class="profile-wrapper text-center"><div id="avatar"> <a href="/" class="mx-auto"> <img src="/assets/img/favicons/head.png" alt="avatar" onerror="this.style.display='none'"> </a></div><div class="site-title"> <a href="/">clingfei</a></div><div class="site-subtitle font-italic">行则将至</div></div><ul class="w-100"><li class="nav-item"> <a href="/" class="nav-link"> <i class="fa-fw fas fa-home ml-xl-3 mr-xl-3 unloaded"></i> <span>HOME</span> </a><li class="nav-item"> <a href="/categories/" class="nav-link"> <i class="fa-fw fas fa-stream ml-xl-3 mr-xl-3 unloaded"></i> <span>CATEGORIES</span> </a><li class="nav-item"> <a href="/tags/" class="nav-link"> <i class="fa-fw fas fa-tag ml-xl-3 mr-xl-3 unloaded"></i> <span>TAGS</span> </a><li class="nav-item"> <a href="/archives/" class="nav-link"> <i class="fa-fw fas fa-archive ml-xl-3 mr-xl-3 unloaded"></i> <span>ARCHIVES</span> </a><li class="nav-item"> <a href="/about/" class="nav-link"> <i class="fa-fw fas fa-info-circle ml-xl-3 mr-xl-3 unloaded"></i> <span>ABOUT</span> </a></ul><div class="sidebar-bottom mt-auto d-flex flex-wrap justify-content-center align-items-center"> <button class="mode-toggle btn" aria-label="Switch Mode"> <i class="fas fa-adjust"></i> </button> <span class="icon-border"></span> <a href="https://github.com/clingfei" aria-label="github" target="_blank" rel="noopener noreferrer"> <i class="fab fa-github"></i> </a> <a href="https://www.zhihu.com/people/qffds" aria-label="zhihu" target="_blank" rel="noopener noreferrer"> <i class="fab fa-zhihu"></i> </a> <a href="javascript:location.href = 'mailto:' + ['clf700383','gmail.com'].join('@')" aria-label="email" > <i class="fas fa-envelope"></i> </a> <a href="/feed.xml" aria-label="rss" > <i class="fas fa-rss"></i> </a></div></div><div id="topbar-wrapper"><div id="topbar" class="container d-flex align-items-center justify-content-between h-100 pl-3 pr-3 pl-md-4 pr-md-4"> <span id="breadcrumb"> <span> <a href="/"> Home </a> </span> <span>MIT 6.s081 Lab traps</span> </span> <i id="sidebar-trigger" class="fas fa-bars fa-fw"></i><div id="topbar-title"> Post</div><i id="search-trigger" class="fas fa-search fa-fw"></i> <span id="search-wrapper" class="align-items-center"> <i class="fas fa-search fa-fw"></i> <input class="form-control" id="search-input" type="search" aria-label="search" autocomplete="off" placeholder="Search..."> </span> <span id="search-cancel" >Cancel</span></div></div><div id="main-wrapper" class="d-flex justify-content-center"><div id="main" class="container pl-xl-4 pr-xl-4"><div class="row"><div id="core-wrapper" class="col-12 col-lg-11 col-xl-9 pr-xl-4"><div class="post pl-1 pr-1 pl-md-2 pr-md-2"><h1 data-toc-skip>MIT 6.s081 Lab traps</h1><div class="post-meta text-muted"> <span> Posted <em class="" data-ts="1680652800" data-df="ll" data-toggle="tooltip" data-placement="bottom"> Apr 5, 2023 </em> </span><div class="d-flex justify-content-between"> <span> By <em> <a href="https://github.com/clingfei">clingfei</a> </em> </span><div> <span class="readtime" data-toggle="tooltip" data-placement="bottom" title="2256 words"> <em>12 min</em> read</span></div></div></div><div class="post-content"><hr /><blockquote><p><a href="https://pdos.csail.mit.edu/6.828/2020/labs/traps.html">Lab: Traps (mit.edu)</a></p></blockquote><h3 id="risc-v-assembly"><span class="mr-2">RISC-V assembly</span><a href="#risc-v-assembly" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><h4 id="1-which-registers-contain-arguments-to-functions-for-example-which-register-holds-13-in-mains-call-toprintf"><span class="mr-2">1. Which registers contain arguments to functions? For example, which register holds 13 in main’s call to printf?</span><a href="#1-which-registers-contain-arguments-to-functions-for-example-which-register-holds-13-in-mains-call-toprintf" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>在main函数中，对printf的调用如下：</p><pre><code class="language-assembly"> printf("%d %d\n", f(8)+1, 13);
+
+  24: 4635                 li a2,13
+
+  26: 45b1                 li a1,12
+
+  28: 00000517             auipc a0,0x0
+
+  2c: 7b050513             addi  a0,a0,1968 # 7d8 &lt;malloc+0xea&gt;
+
+  30: 00000097             auipc ra,0x0
+
+  34: 600080e7             jalr  1536(ra) # 630 &lt;printf&gt;
+</code></pre><p>可以看到通过li指令将13加载到了a2寄存器，将12加载到了a1寄存器，而12这里是在编译时编译器计算出了f(8)+1的值。在设置了a1和a2这两个寄存器的值后，执行了auipc这条指令。 auipc rd, immediate的作用是PC加立即数，也就是把符号位扩展的高20位左移12位加到PC上，结果写入到rd中。 auipc a0, 0x0的作用是将pc的值写入到a0寄存器中，然后addi a0, a0, 1968，使a0中的值变为0x7d8。 auipc ra, 0x0，取pc到ra寄存器，该指令对应的pc为0x30，然后通过jalr 1536(ra)进行无条件跳转，即跳转到0x30+0x600=0x640的位置，开始printf函数的执行。</p><h4 id="2where-is-the-call-to-functionfin-the-assembly-code-for-main-where-is-the-call-tog-hint-the-compiler-may-inline-functions"><span class="mr-2">2.Where is the call to function f in the assembly code for main? Where is the call to g? (Hint: the compiler may inline functions.)</span><a href="#2where-is-the-call-to-functionfin-the-assembly-code-for-main-where-is-the-call-tog-hint-the-compiler-may-inline-functions" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>并没有调用，f和g两个函数都被内联了</p><h4 id="3at-what-address-is-the-functionprintflocated"><span class="mr-2">3.At what address is the function printf located?</span><a href="#3at-what-address-is-the-functionprintflocated" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>0x640</p><h4 id="4-what-value-is-in-the-registerrajust-after-thejalrtoprintfinmain"><span class="mr-2">4. What value is in the register ra just after the jalr to printf in main?</span><a href="#4-what-value-is-in-the-registerrajust-after-thejalrtoprintfinmain" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><p>jalr指令跳转时，ra的值为0x30，而jalr将其下一条指令的值存入ra寄存器，因此跳转后ra寄存器的值为0x38</p><h4 id="5-run-the-following-codewhat-is-the-outputif-the-risc-v-were-instead-big-endian-what-would-you-setito-in-order-to-yield-the-same-output-would-you-need-to-change57616to-a-different-value"><span class="mr-2">5. Run the following code.What is the output?If the RISC-V were instead big-endian what would you set <code class="language-plaintext highlighter-rouge">i</code> to in order to yield the same output? Would you need to change <code class="language-plaintext highlighter-rouge">57616</code> to a different value?</span><a href="#5-run-the-following-codewhat-is-the-outputif-the-risc-v-were-instead-big-endian-what-would-you-setito-in-order-to-yield-the-same-output-would-you-need-to-change57616to-a-different-value" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><pre><code class="language-C">unsigned int i = 0x00646c72;
+printf("H%x Wo%s", 57616, &amp;i);
+</code></pre><p>输出为HE110 World. 57616对应的十六进制数位E110，RISC-V是小端的，也就是说i在内存从低位到高位的字节依次是72 6c 64 00，printf中参数%s将i作为字符串输出，72转换成ASCII码为r，6c为l，64为d.如果是大端法，i应该设置为0x726c6400，57616不需要修改。</p><h4 id="6-in-the-following-code-what-is-going-to-be-printed-aftery-note-the-answer-is-not-a-specific-value-why-does-this-happen"><span class="mr-2">6. In the following code, what is going to be printed after <code class="language-plaintext highlighter-rouge">'y='</code>? (note: the answer is not a specific value.) Why does this happen?</span><a href="#6-in-the-following-code-what-is-going-to-be-printed-aftery-note-the-answer-is-not-a-specific-value-why-does-this-happen" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4><pre><code class="language-C">printf("x=%d y=%d", 3);
+</code></pre><p>根据汇编代码，printf将a2寄存器的值作为第三个参数，也就是说a2寄存器的值是什么，y就等于什么。</p><h3 id="backtrace"><span class="mr-2">Backtrace</span><a href="#backtrace" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>在kernel/printf.c中实现backtrace()函数，输出函数调用的堆栈信息。 编译器在每个函数栈帧中保存了caller的函数栈帧地址，因此backtrace可以利用这些栈帧指针不断回溯caller的栈帧。 当前正在执行的函数栈帧指针保存在s0寄存器中，可以通过r_fp函数读取：</p><pre><code class="language-C">static inline uint64
+r_fp()
+{
+	uint64 x;
+	asm volatile("mv %0, s0" : "=r"(x));
+	return x;
+}
+</code></pre><p>函数栈帧的布局： <a href="https://s2.loli.net/2023/04/05/yvg9ao5XL4lHQIM.png" class="popup img-link "><img data-src="https://s2.loli.net/2023/04/05/yvg9ao5XL4lHQIM.png" alt="Pasted image 20230405090620.png" class="lazyload" data-proofer-ignore></a> 从上图可以看出，函数调用栈向下增长，sp指针保存的是当前函数栈的栈顶，fp保存的是当前栈的栈底。当前函数的返回地址保存在fp-8位置处，而指向caller的fp的指针保存在fp-16位置处。xv6为每个栈分配一个页，因此可以使用PGROUNDUP获得当前栈的最高地址，backtrace的完整代码如下：</p><pre><code class="language-C">void
+backtrace(void)
+{
+  printf("backtrace:\n");
+  uint64 cur_frame_pointer = r_fp();
+  while (cur_frame_pointer &lt; PGROUNDUP(cur_frame_pointer)) {
+    printf("%p\n", *((uint64*)(cur_frame_pointer-8)));
+    cur_frame_pointer = *((uint64*)(cur_frame_pointer - 16));
+  }
+}
+</code></pre><h3 id="alarm"><span class="mr-2">Alarm</span><a href="#alarm" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>添加一个sigalarm(interval, handler)系统调用，当应用调用signalarm(n, fn)时，每经过n个CPU中断，内核调用一次fn。当fn返回时，要求能够恢复到应用原本的上下文继续执行。</p><h3 id="test0-invoke-handler"><span class="mr-2">test0: invoke handler</span><a href="#test0-invoke-handler" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>按照<a href="https://fail.lingfei.xyz/_posts/MIT-6.s081-Lab-system-calls/">MIT 6.s081 Lab system calls | clingfei</a>中类似的过程，首先在user/user.h中添加系统调用sigalarm和sigreturn：</p><pre><code class="language-C">int sigalarm(int ticks, void (*handler)());
+int sigreturn(void);
+</code></pre><p>并在syscall.c和syscall.h中添加sys_signalarm和sys_return的声明。 根据hint，目前sigreturn只需要返回0：</p><pre><code class="language-C">uint64 sys_sigreturn(void) {
+	return 0;
+}
+</code></pre><p>sys_sigalarm()需要在proc结构体中保存alarm interval和指向handler function的指针，分别对应系统调用参数中的interval和handler：</p><pre><code class="language-C">uint64 sys_sigalarm(void) {
+    struct proc* p = myproc();
+    if (argint(0, &amp;p-&gt;interval) &lt; 0 || argaddr(1, &amp;p-&gt;handler) &lt; 0)
+      return -1;
+    // printf("interval: %d, handler: %p", p-&gt;interval, p-&gt;handler);
+	// p-&gt;ticks_since_last = 0;
+    return 0;
+}
+</code></pre><p>在proc结构体中添加与alarm有关的信息，其中interval和handler用于保存系统调用参数，而ticks_since_last用于记录距离上次调用handler已经发生了几次时钟中断（<em>在allocproc时置0</em>）：</p><pre><code class="language-C">struct proc {
+	......
+	int interval;        
+	uint64 handler;
+	uint64 ticks_since_last;
+};
+</code></pre><p>对于每次时钟中断，在usertrap函数中被处理，其中时钟中断对应的是设备中断，根据dev_intr的定义，当时钟中断发生时返回值为2，因此当which_dev为2时，使ticks_since_last+1，并判断ticks_since_last是否等于interval，设置p-&gt;trapframe-&gt;epc为p-&gt;handler，其中p-&gt;handler中保存的是系统调用时传递的参数地址，在usertrapret返回到用户态时，从trapframe中取出epc装入pc，从而执行handler：</p><pre><code class="language-C">void
+usertrap(void)
+{
+  int which_dev = 0;
+
+  if((r_sstatus() &amp; SSTATUS_SPP) != 0)
+    panic("usertrap: not from user mode");
+
+  // send interrupts and exceptions to kerneltrap(),
+  // since we're now in the kernel.
+  w_stvec((uint64)kernelvec);
+
+  struct proc *p = myproc();
+  
+  // save user program counter.
+  p-&gt;trapframe-&gt;epc = r_sepc();
+  
+  if(r_scause() == 8){
+    // system call
+
+    if(p-&gt;killed)
+      exit(-1);
+
+    // sepc points to the ecall instruction,
+    // but we want to return to the next instruction.
+    p-&gt;trapframe-&gt;epc += 4;
+
+    // an interrupt will change sstatus &amp;c registers,
+    // so don't enable until done with those registers.
+    intr_on();
+
+    syscall();
+  } else if((which_dev = devintr()) != 0){
+    // ok
+    // only manipulate a process's alarm ticks if there is a timer interrupt
+    if (which_dev == 2) {
+        p-&gt;ticks_since_last++;
+        if (p-&gt;ticks_since_last == p-&gt;interval) {
+          p-&gt;trapframe-&gt;epc = p-&gt;handler;
+        }
+    }
+  } else {
+    printf("usertrap(): unexpected scause %p pid=%d\n", r_scause(), p-&gt;pid);
+    printf("            sepc=%p stval=%p\n", r_sepc(), r_stval());
+    p-&gt;killed = 1;
+  }
+
+  if(p-&gt;killed)
+    exit(-1);
+
+  // give up the CPU if this is a timer interrupt.
+  if(which_dev == 2)
+    yield();
+
+  usertrapret();
+}
+</code></pre><p>运行alarmtest，成功通过test0</p><h3 id="test1test2-resume-interrupted-code"><span class="mr-2">test1/test2(): resume interrupted code</span><a href="#test1test2-resume-interrupted-code" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3><p>上述代码能够调用handler，但是无法回到用户程序执行系统调用时的上下文继续执行。alarmtest.c中的periodic，也就是上文所说的handler的定义如下：</p><pre><code class="language-C">void
+periodic()
+{
+  count = count + 1;
+  printf("alarm!\n");
+  sigreturn();
+}
+</code></pre><p>也就是说，在handler中会调用sigreturn函数，用于返回系统调用时的上下文。 实验指导中给出了提示：</p><ul><li>Your solution will require you to save and restore registers—what registers do you need to save and restore to resume the interrupted code correctly? (Hint: it will be many).</ul><p>随之产生了一个疑问，在系统调用时uservec已经保存了所有的寄存器到trapframe中，返回时userret也从trapframe中恢复了寄存器，为什么这里依然说需要保存和恢复寄存器？</p><p>仔细观察usertrap中的代码，可以看到在发生时钟中断，usertrap进入时，通过<code class="language-plaintext highlighter-rouge">p-&gt;trapframe-&gt;epc = r_sepc();</code>保存了sepc寄存器到trapframe中，此时的pc指向的是时钟中断时正在执行的代码，但是对于时钟中断，在调用handler时，使用handler的指针覆盖了epc，从而导致之前保存的epc丢失。然后执行yield进行进程调度，当再次切换到该进程执行时，首先通过usertrapret和userret返回到用户态，此时除了sepc寄存器指向handler外，其他的寄存器都与发生时钟中断时一致，但是handler执行完，再进行系统调用sigreturn，此时一方面寄存器的值被handler改变，另一方面之前的epc也被覆盖。</p><p>为了能够在sigreturn中恢复到时钟中断时的执行现场，需要在uservec之外，再对寄存器做一次备份。在proc中添加一个trapframe类型的指针，称为trapframecopy。对于时钟中断，在usertrap中修改epc为handler之前，首先保存当前的trapframe到trapframecopy， 由于trapframe只占用了前280个字节，因此直接将trapframe页的后一半交给trapframecopy：</p><pre><code class="language-C">void
+usertrap(void)
+{
+  int which_dev = 0;
+
+  if((r_sstatus() &amp; SSTATUS_SPP) != 0)
+    panic("usertrap: not from user mode");
+
+  // send interrupts and exceptions to kerneltrap(),
+  // since we're now in the kernel.
+  w_stvec((uint64)kernelvec);
+
+  struct proc *p = myproc();
+  
+  // save user program counter.
+  p-&gt;trapframe-&gt;epc = r_sepc();
+  
+  if(r_scause() == 8){
+    // system call
+	//......
+  } else if((which_dev = devintr()) != 0){
+    // ok
+    // only manipulate a process's alarm ticks if there is a timer interrupt
+    if (which_dev == 2) {
+        p-&gt;ticks_since_last++;
+        if (p-&gt;ticks_since_last == p-&gt;interval) {
+          p-&gt;trapframecopy = p-&gt;trapframe + 512;
+          memmove(p-&gt;trapframecopy, p-&gt;trapframe, sizeof(struct trapframe));
+          p-&gt;trapframe-&gt;epc = p-&gt;handler;
+        }
+    }
+  } else {
+	//......
+  }
+
+  if(p-&gt;killed)
+    exit(-1);
+
+  // give up the CPU if this is a timer interrupt.
+  if(which_dev == 2)
+    yield();
+
+  usertrapret();
+}
+</code></pre><p>在sys_sigreturn中，从trapframecopy拷贝回trapframe：</p><pre><code class="language-C">uint64 sys_sigreturn(void) {
+    struct proc *p = myproc();
+    if (p-&gt;trapframecopy != 0) {
+      memmove(p-&gt;trapframe, p-&gt;trapframecopy, sizeof(struct trapframe));
+    }
+    p-&gt;ticks_since_last = 0;
+    p-&gt;trapframecopy = 0;
+    return 0;
+}
+</code></pre><p>为了防止在handler返回前内核再次调用handler，在sys_sigreturn返回前将ticks_since_last置0，这样即使再次发生时钟中断，由于当前执行时ticks_since_last已经等于interval，因此只会使ticks_since_last不断+1，而不会再次设置epc为handler，从而防止再次调用。</p><p>完成上述修改后，成功通过alarmtest和usertests。</p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"> <i class="far fa-folder-open fa-fw mr-1"></i> <a href='/categories/operating-system/'>operating system</a>, <a href='/categories/xv6/'>xv6</a></div><div class="post-tags"> <i class="fa fa-tags fa-fw mr-1"></i> <a href="/tags/operating-system/" class="post-tag no-text-decoration" >operating system</a> <a href="/tags/xv6/" class="post-tag no-text-decoration" >xv6</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-3 pt-5 pb-2"><div class="license-wrapper"> This post is licensed under <a href="https://creativecommons.org/licenses/by/4.0/"> CC BY 4.0 </a> by the author.</div><div class="share-wrapper"> <span class="share-label text-muted mr-1">Share</span> <span class="share-icons"> <a href="https://twitter.com/intent/tweet?text=MIT%206.s081%20Lab%20traps%20-%20clingfei&url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-traps%2F" data-toggle="tooltip" data-placement="top" title="Twitter" target="_blank" rel="noopener" aria-label="Twitter"> <i class="fa-fw fab fa-twitter"></i> </a> <a href="https://www.facebook.com/sharer/sharer.php?title=MIT%206.s081%20Lab%20traps%20-%20clingfei&u=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-traps%2F" data-toggle="tooltip" data-placement="top" title="Facebook" target="_blank" rel="noopener" aria-label="Facebook"> <i class="fa-fw fab fa-facebook-square"></i> </a> <a href="https://t.me/share/url?url=https%3A%2F%2Fclingfei.github.io%2F_posts%2FMIT-6.s081-Lab-traps%2F&text=MIT%206.s081%20Lab%20traps%20-%20clingfei" data-toggle="tooltip" data-placement="top" title="Telegram" target="_blank" rel="noopener" aria-label="Telegram"> <i class="fa-fw fab fa-telegram"></i> </a> <i id="copy-link" class="fa-fw fas fa-link small" data-toggle="tooltip" data-placement="top" title="Copy link" data-title-succeed="Link copied successfully!"> </i> </span></div></div></div></div></div><div id="panel-wrapper" class="col-xl-3 pl-2 text-muted"><div class="access"><div id="access-lastmod" class="post"><div class="panel-heading">Recently Updated</div><ul class="post-content pl-0 pb-1 ml-1 mt-2"><li><a href="/_posts/11.-%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">LeetCode 11. 盛最多水的容器</a><li><a href="/_posts/C++-tricks/">C++ tricks</a><li><a href="/_posts/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AD%97%E9%9D%A2%E5%80%BC%E4%BD%9C%E4%B8%BA%E5%AE%9E%E5%8F%82%E6%97%B6,%E8%A2%AB%E5%AD%98%E6%94%BE%E5%9C%A8%E5%93%AA%E4%BA%86/">字符串字面值作为实参时，被放在哪了？</a><li><a href="/_posts/LeetCode-761%E9%A2%98%E8%A7%A3/">LeetCode 761 特殊的二进制序列</a><li><a href="/_posts/seimi/">SEIMI</a></ul></div><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="toc-wrapper" class="pl-0 pr-4 mb-5"><div class="panel-heading pl-3 pt-2 mb-2">Contents</div><nav id="toc"></nav></div><script src="https://cdn.jsdelivr.net/npm/tocbot@4.20.1/dist/tocbot.min.js"></script></div></div><div class="row"><div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 pl-3 pr-3 pr-xl-4 mt-5"><div id="related-posts" class="mb-2 mb-sm-4"><h3 class="pt-2 mb-4 ml-1" data-toc-skip>Further Reading</h3><div class="card-deck mb-4"><div class="card"> <a href="/_posts/MIT-6.s081-Lab-lazy-allocation/"><div class="card-body"> <em class="small" data-ts="1680739200" data-df="ll" > Apr 6, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab lazy allocation</h3><div class="text-muted small"><p> Lab: xv6 lazy page allocation (mit.edu) Page-fault exceptions 当CPU无法将虚拟地址转换成物理地址时，生成一个page-fault excecption，称为缺页异常。RISC-V中存在三种类型的缺页异常：load(load指令)/store(store指令)/instruction(指令所在的虚拟地址无法转换成物...</p></div></div></a></div><div class="card"> <a href="/_posts/MIT-6.s081-Lab-cow/"><div class="card-body"> <em class="small" data-ts="1681084800" data-df="ll" > Apr 10, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab copy-on-write fork</h3><div class="text-muted small"><p> Lab: Copy-on-Write Fork for xv6 (mit.edu) Problem and Solution xv6中的fork系统调用将父进程的用户空间内存全部复制到子进程，而如果需要拷贝的内存数量比较大，拷贝过程会引起严重的开销问题。并且在子进程中，fork系统调用后通常紧跟着exec系统调用以修改进程影响，导致fork复制的内存被丢弃。如果父进程和子进程使...</p></div></div></a></div><div class="card"> <a href="/_posts/MIT-6.s081-Lab-multhreading/"><div class="card-body"> <em class="small" data-ts="1681430400" data-df="ll" > Apr 14, 2023 </em><h3 class="pt-0 mt-1 mb-3" data-toc-skip>MIT 6.s081 Lab Multithreading</h3><div class="text-muted small"><p> Lab: Multithreading (mit.edu) Uthread: switching between threads 为用户态的线程系统设计并实现上下文切换机制，实现创建线程、在线程切换时保存和恢复寄存器的功能。 uthread.c中对线程的定义如下： struct thread { char stack[STACK_SIZE]; /* the th...</p></div></div></a></div></div></div><div class="post-navigation d-flex justify-content-between"> <a href="/_posts/Trap-and-system-calls/" class="btn btn-outline-primary" prompt="Older"><p>xv6 trap and system call notes</p></a> <a href="/_posts/MIT-6.s081-Lab-lazy-allocation/" class="btn btn-outline-primary" prompt="Newer"><p>MIT 6.s081 Lab lazy allocation</p></a></div></div></div></div><div id="search-result-wrapper" class="d-flex justify-content-center unloaded"><div class="col-12 col-sm-11 post-content"><div id="search-hints"><div id="access-tags"><div class="panel-heading">Trending Tags</div><div class="d-flex flex-wrap mt-3 mb-1 mr-3"> <a class="post-tag" href="/tags/operating-system/">operating system</a> <a class="post-tag" href="/tags/xv6/">xv6</a> <a class="post-tag" href="/tags/distributed-systems/">Distributed Systems</a> <a class="post-tag" href="/tags/linux/">Linux</a> <a class="post-tag" href="/tags/%E7%A8%8B%E5%BA%8F%E5%88%86%E6%9E%90/">程序分析</a> <a class="post-tag" href="/tags/c-c/">C/C++</a> <a class="post-tag" href="/tags/%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB/">论文阅读</a> <a class="post-tag" href="/tags/debug/">debug</a> <a class="post-tag" href="/tags/gdb/">gdb</a> <a class="post-tag" href="/tags/llvm/">LLVM</a></div></div></div><div id="search-results" class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div></div><footer><div class="container pl-lg-4 pr-lg-4"><div class="d-flex justify-content-between align-items-center text-muted ml-md-3 mr-md-3"><div class="footer-left"><p class="mb-0"> © 2024 <a href="https://github.com/clingfei">clingfei</a>. <span data-toggle="tooltip" data-placement="top" title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p></div><div class="footer-right"><p class="mb-0">Powered by <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a> with <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a> theme.</p></div></div></div></footer><div id="mask"></div><a id="back-to-top" href="#" aria-label="back-to-top" class="btn btn-lg btn-box-shadow" role="button"> <i class="fas fa-angle-up"></i> </a> <script src="https://cdn.jsdelivr.net/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js"></script> <script> SimpleJekyllSearch({ searchInput: document.getElementById('search-input'), resultsContainer: document.getElementById('search-results'), json: '/assets/js/data/search.json', searchResultTemplate: '<div class="pl-1 pr-1 pl-sm-2 pr-sm-2 pl-lg-4 pr-lg-4 pl-xl-0 pr-xl-0"> <a href="{url}">{title}</a><div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1"> {categories} {tags}</div><p>{snippet}</p></div>', noResultsText: '<p class="mt-5">Oops! No result founds.</p>', templateMiddleware: function(prop, value, template) { if (prop === 'categories') { if (value === '') { return `${value}`; } else { return `<div class="mr-sm-4"><i class="far fa-folder fa-fw"></i>${value}</div>`; } } if (prop === 'tags') { if (value === '') { return `${value}`; } else { return `<div><i class="fa fa-tag fa-fw"></i>${value}</div>`; } } } }); </script> <script src="https://cdn.jsdelivr.net/combine/npm/magnific-popup@1/dist/jquery.magnific-popup.min.js,npm/lazysizes@5.3.2/lazysizes.min.js,npm/clipboard@2/dist/clipboard.min.js"></script> <script src="https://cdn.jsdelivr.net/combine/npm/dayjs@1/dayjs.min.js,npm/dayjs@1/locale/en.min.js,npm/dayjs@1/plugin/relativeTime.min.js,npm/dayjs@1/plugin/localizedFormat.min.js"></script> <script defer src="/assets/js/dist/post.min.js"></script> <script src="https://cdn.jsdelivr.net/npm/bootstrap@4/dist/js/bootstrap.bundle.min.js"></script> <script defer src="/unregister.js"></script>
