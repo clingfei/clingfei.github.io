@@ -5,6 +5,7 @@ categories: [LLVM,gdb]
 tags:
 - LLVM 
 - gdb
+- debug
 
 ---
 

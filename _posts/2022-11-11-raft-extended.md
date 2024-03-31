@@ -1,7 +1,7 @@
 ---
 declare: true
 title: Raft--In Search of an Understandable Consensus Algorithm
-categories: [Distributed Systems, 论文阅读]
+categories: [论文阅读, Distributed Systems]
 tags:
 - Distributed Systems
 - 论文阅读

@@ -1,7 +1,7 @@
 ---
 declare: true
 title: MapReduce--Simplified Data Processing on Large Clusters
-categories: [Distributed Systems, 论文阅读]
+categories: [论文阅读, Distributed Systems]
 tags:
 - Distributed Systems
 - 论文阅读
